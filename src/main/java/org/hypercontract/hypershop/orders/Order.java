@@ -1,7 +1,8 @@
 package org.hypercontract.hypershop.orders;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.*;
+import org.hypercontract.hypershop.rest.ResourceId;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCart;
 import org.hypercontract.hypershop.userProfile.Address;
 import org.hypercontract.hypershop.userProfile.PaymentOption;
@@ -17,8 +18,8 @@ import java.util.stream.Collectors;
 public class Order {
 
     @Getter
-    @JsonProperty("_id")
-    private final String id;
+    @JsonUnwrapped(prefix = "_")
+    private final ResourceId id = new ResourceId();
 
     @Getter
     @Builder.Default

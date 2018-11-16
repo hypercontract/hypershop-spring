@@ -1,7 +1,11 @@
 package org.hypercontract.hypershop.userProfile;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
+import org.hypercontract.hypershop.rest.ResourceId;
 
 @Builder
 @AllArgsConstructor
@@ -9,8 +13,8 @@ import lombok.*;
 public class Address {
 
     @Getter
-    @JsonProperty("_id")
-    private final String id;
+    @JsonUnwrapped(prefix = "_")
+    private final ResourceId id = new ResourceId();
 
     @Getter
     private final String name;

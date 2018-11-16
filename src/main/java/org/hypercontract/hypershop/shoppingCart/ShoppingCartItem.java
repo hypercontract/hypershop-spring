@@ -1,8 +1,9 @@
 package org.hypercontract.hypershop.shoppingCart;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.*;
 import org.hypercontract.hypershop.product.Product;
+import org.hypercontract.hypershop.rest.ResourceId;
 
 import java.math.BigDecimal;
 
@@ -13,8 +14,8 @@ import java.math.BigDecimal;
 public class ShoppingCartItem {
 
     @Getter
-    @JsonProperty("_id")
-    private final String id;
+    @JsonUnwrapped(prefix = "_")
+    private final ResourceId id = new ResourceId();
 
     @Getter
     private final String name;
