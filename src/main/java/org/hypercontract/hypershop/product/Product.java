@@ -1,16 +1,18 @@
 package org.hypercontract.hypershop.product;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Builder
-@RequiredArgsConstructor
+@AllArgsConstructor
 @ToString
 public class Product {
+
+    @Getter
+    @JsonProperty("_id")
+    private final String id;
 
     @Getter
     private final String name;

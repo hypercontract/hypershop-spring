@@ -1,14 +1,11 @@
 package org.hypercontract.hypershop.userProfile;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @Builder
-@RequiredArgsConstructor
+@AllArgsConstructor
 @ToString
 public class UserProfile {
 

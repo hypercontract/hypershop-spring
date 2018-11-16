@@ -1,14 +1,16 @@
 package org.hypercontract.hypershop.userProfile;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 @Builder
-@RequiredArgsConstructor
+@AllArgsConstructor
 @ToString
 public class Address {
+
+    @Getter
+    @JsonProperty("_id")
+    private final String id;
 
     @Getter
     private final String name;
