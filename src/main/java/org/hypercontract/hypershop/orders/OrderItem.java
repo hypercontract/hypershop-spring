@@ -1,12 +1,9 @@
 package org.hypercontract.hypershop.orders;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
-import org.hypercontract.hypershop.product.Product;
-import org.hypercontract.hypershop.rest.ResourceId;
+import lombok.*;
+import org.hypercontract.hypershop.product.Product.ProductId;
+import org.hypercontract.hypershop.resource.ResourceId;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
 
 import java.math.BigDecimal;
@@ -18,7 +15,7 @@ public class OrderItem {
 
     @Getter
     @JsonUnwrapped(prefix = "_")
-    private final ResourceId id = new ResourceId();
+    private final OrderItemId id = new OrderItemId();
 
     @Getter
     private final String name;
@@ -33,7 +30,14 @@ public class OrderItem {
     private final int quantity;
 
     @Getter
-    private final Product product;
+    private final ProductId product;
+
+    @NoArgsConstructor
+    public static final class OrderItemId extends ResourceId {
+        public OrderItemId(String id) {
+            super(id);
+        }
+    }
 
     public static class OrderItemBuilder {
 

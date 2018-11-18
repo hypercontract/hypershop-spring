@@ -2,10 +2,10 @@ package org.hypercontract.hypershop.orders;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.*;
-import org.hypercontract.hypershop.rest.ResourceId;
-import org.hypercontract.hypershop.shoppingCart.ShoppingCart;
-import org.hypercontract.hypershop.userProfile.Address;
-import org.hypercontract.hypershop.userProfile.PaymentOption;
+import org.hypercontract.hypershop.resource.ResourceId;
+import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
+import org.hypercontract.hypershop.userProfile.Address.AddressId;
+import org.hypercontract.hypershop.userProfile.PaymentOption.PaymentOptionId;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,7 +19,7 @@ public class Order {
 
     @Getter
     @JsonUnwrapped(prefix = "_")
-    private final ResourceId id = new ResourceId();
+    private final OrderId id = new OrderId();
 
     @Getter
     @Builder.Default
@@ -29,16 +29,23 @@ public class Order {
     private final List<OrderItem> items;
 
     @Getter
-    private final Address billingAddress;
+    private final AddressId billingAddress;
 
     @Getter
-    private final Address shippingAddress;
+    private final AddressId shippingAddress;
 
     @Getter
-    private final PaymentOption payment;
+    private final PaymentOptionId payment;
 
     @Getter
     private final LocalDateTime date;
+
+    @NoArgsConstructor()
+    public static final class OrderId extends ResourceId {
+        public OrderId(String id) {
+            super(id);
+        }
+    }
 
     public static class OrderBuilder {
 

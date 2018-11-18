@@ -1,9 +1,11 @@
 package org.hypercontract.hypershop.shoppingCart;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.*;
 import org.hypercontract.hypershop.product.Product;
-import org.hypercontract.hypershop.rest.ResourceId;
+import org.hypercontract.hypershop.product.Product.ProductId;
+import org.hypercontract.hypershop.resource.ResourceId;
 
 import java.math.BigDecimal;
 
@@ -15,7 +17,7 @@ public class ShoppingCartItem {
 
     @Getter
     @JsonUnwrapped(prefix = "_")
-    private final ResourceId id = new ResourceId();
+    private final ShoppingCartItemId id = new ShoppingCartItemId();
 
     @Getter
     private final String name;
@@ -31,7 +33,19 @@ public class ShoppingCartItem {
     private int quantity;
 
     @Getter
-    private final Product product;
+    private final ProductId product;
+
+    @JsonIgnore
+    public BigDecimal getTotalPrice() {
+        return price.multiply(new BigDecimal(quantity));
+    }
+
+    @NoArgsConstructor
+    public static final class ShoppingCartItemId extends ResourceId {
+        public ShoppingCartItemId(String id) {
+            super(id);
+        }
+    }
 
     public static class ShoppingCartItemBuilder {
 
@@ -39,7 +53,7 @@ public class ShoppingCartItem {
             this.name = product.getName();
             this.description = product.getDescription();
             this.price = product.getPrice();
-            this.product = product;
+            this.product = product.getId();
             return this;
         }
 
