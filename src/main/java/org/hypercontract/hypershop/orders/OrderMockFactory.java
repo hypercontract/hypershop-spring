@@ -2,6 +2,7 @@ package org.hypercontract.hypershop.orders;
 
 import com.github.javafaker.Faker;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCart;
+import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
 import org.hypercontract.hypershop.userProfile.Address;
 import org.hypercontract.hypershop.userProfile.PaymentOption;
 import org.springframework.stereotype.Service;
@@ -20,19 +21,33 @@ public class OrderMockFactory {
 
     public List<Order> createOrders(List<ShoppingCart> shoppingCarts, List<Address> addresses, List<PaymentOption> paymentOptions) {
         return shoppingCarts.stream()
-                .map(shoppingCart -> createOrder(shoppingCart, addresses, paymentOptions))
-                .collect(Collectors.toList());
+            .map(shoppingCart -> createOrder(shoppingCart, addresses, paymentOptions))
+            .collect(Collectors.toList());
     }
 
     private Order createOrder(ShoppingCart shoppingCart, List<Address> addresses, List<PaymentOption> paymentOptions) {
         return Order.builder()
-                .fromShoppingCart(shoppingCart)
-                .date(getRandomDate())
-                .status(getRandomOrderStatus())
-                .billingAddress(getRandomAddress(addresses))
-                .shippingAddress(getRandomAddress(addresses))
-                .payment(getRandomPaymentOption(paymentOptions))
-                .build();
+            .fromNewOrder(getRandomNewOrder(
+                shoppingCart.getItems(),
+                getRandomAddress(addresses),
+                getRandomAddress(addresses),
+                getRandomPaymentOption(paymentOptions)
+            ))
+            .date(getRandomDate())
+            .status(getRandomOrderStatus())
+            .build();
+    }
+
+    private NewOrder getRandomNewOrder(List<ShoppingCartItem> shoppingCartItems, Address billingAddress, Address shippingAddress, PaymentOption payment) {
+        return NewOrder.builder()
+            .items(shoppingCartItems.stream()
+                .map(shoppingCartItem -> shoppingCartItem.getId())
+                .collect(Collectors.toList())
+            )
+            .billingAddress(billingAddress.getId())
+            .shippingAddress(shippingAddress.getId())
+            .payment(payment.getId())
+            .build();
     }
 
     private OrderStatus getRandomOrderStatus() {
@@ -44,9 +59,9 @@ public class OrderMockFactory {
 
     private LocalDateTime getRandomDate() {
         return faker.date().past(365 * 5, TimeUnit.DAYS)
-                .toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+            .toInstant()
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime();
     }
 
     private Address getRandomAddress(List<Address> address) {

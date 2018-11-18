@@ -49,10 +49,17 @@ public class Order {
 
     public static class OrderBuilder {
 
-        public OrderBuilder fromShoppingCart(ShoppingCart shoppingCart) {
-            this.items = shoppingCart.getItems().stream()
-                    .map(shoppingCartItem -> OrderItem.builder().fromShoppingCartItem(shoppingCartItem).build())
-                    .collect(Collectors.toList());
+        public OrderBuilder fromNewOrder(NewOrder newOrder) {
+            this.billingAddress = newOrder.getBillingAddress();
+            this.shippingAddress = newOrder.getShippingAddress();
+            this.payment = newOrder.getPayment();
+            return this;
+        }
+
+        public OrderBuilder fromShoppingCartItems(List<ShoppingCartItem> shoppingCartItems) {
+            this.items = shoppingCartItems.stream()
+                .map(shoppingCartItem -> OrderItem.builder().fromShoppingCartItem(shoppingCartItem).build())
+                .collect(Collectors.toList());
             return this;
         }
 
