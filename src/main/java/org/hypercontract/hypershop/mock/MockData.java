@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.ToString;
 import org.hypercontract.hypershop.orders.Order;
 import org.hypercontract.hypershop.product.Product;
+import org.hypercontract.hypershop.shoppingCart.ShoppingCart;
 import org.hypercontract.hypershop.userProfile.Address;
 import org.hypercontract.hypershop.userProfile.PaymentOption;
 
@@ -25,6 +26,9 @@ public class MockData {
 
     @Getter
     private final List<Product> products;
+
+    @Getter
+    private final ShoppingCart shoppingCart;
 
     @Getter
     private final List<Order> orders;

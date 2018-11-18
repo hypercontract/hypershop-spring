@@ -3,6 +3,7 @@ package org.hypercontract.hypershop.mock;
 import lombok.RequiredArgsConstructor;
 import org.hypercontract.hypershop.orders.OrderMockFactory;
 import org.hypercontract.hypershop.product.ProductMockFactory;
+import org.hypercontract.hypershop.shoppingCart.ShoppingCart;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartMockFactory;
 import org.hypercontract.hypershop.userProfile.AddressMockFactory;
 import org.hypercontract.hypershop.userProfile.PaymentOptionMockFactory;
@@ -30,15 +31,16 @@ public class MockDataFactory {
         var products = productMockFactory.createProducts(productCount);
         var orders = orderMockFactory.createOrders(
             shoppingCartMockFactory.createShoppingCarts(products, orderCount, maxItemCount),
-                addresses,
-                paymentOptions
+            addresses,
+            paymentOptions
         );
 
         return MockData.builder()
-                .addresses(addresses)
-                .paymentOptions(paymentOptions)
-                .products(products)
-                .orders(orders)
-                .build();
+            .addresses(addresses)
+            .paymentOptions(paymentOptions)
+            .products(products)
+            .shoppingCart(new ShoppingCart())
+            .orders(orders)
+            .build();
     }
 }
