@@ -19,27 +19,27 @@ public class ShoppingCartMockFactory {
             var shoppingCartItemCount = faker.number().numberBetween(1, maxShoppingCartItemCount + 1);
             return createShoppingCart(products, shoppingCartItemCount);
         })
-                .limit(shoppingCartCount)
-                .collect(Collectors.toList());
+            .limit(shoppingCartCount)
+            .collect(Collectors.toList());
     }
 
     private ShoppingCart createShoppingCart(List<Product> products, int shoppingCartItemCount) {
         return ShoppingCart.builder()
-                .items(createShoppingCartItems(products, shoppingCartItemCount))
-                .build();
+            .items(createShoppingCartItems(products, shoppingCartItemCount))
+            .build();
     }
 
     private List<ShoppingCartItem> createShoppingCartItems(List<Product> products, int shoppingCartItemCount) {
         return Stream.generate(() -> createShoppingCartItem(getRandomProduct(products)))
-                .limit(shoppingCartItemCount)
-                .collect(Collectors.toList());
+            .limit(shoppingCartItemCount)
+            .collect(Collectors.toList());
     }
 
     private ShoppingCartItem createShoppingCartItem(Product product) {
         return ShoppingCartItem.builder()
-                .fromProduct(product)
-                .quantity(faker.number().numberBetween(1, 6))
-                .build();
+            .fromProduct(product)
+            .quantity(faker.number().numberBetween(1, 6))
+            .build();
     }
 
     private Product getRandomProduct(List<Product> products) {

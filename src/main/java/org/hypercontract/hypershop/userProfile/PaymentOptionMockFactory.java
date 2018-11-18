@@ -14,16 +14,16 @@ public class PaymentOptionMockFactory {
 
     public List<PaymentOption> createPaymentOptions(int paymentOptionCount) {
         return Stream.generate(this::createPaymentOption)
-                .limit(paymentOptionCount)
-                .collect(Collectors.toList());
+            .limit(paymentOptionCount)
+            .collect(Collectors.toList());
     }
 
     private PaymentOption createPaymentOption() {
         return PaymentOption.builder()
-                .accountOwner(faker.name().name())
-                .iban(faker.finance().iban())
-                .bic(faker.finance().bic())
-                .build();
+            .accountOwner(faker.name().name())
+            .iban(faker.finance().iban())
+            .bic(faker.finance().bic())
+            .build();
     }
 
 }

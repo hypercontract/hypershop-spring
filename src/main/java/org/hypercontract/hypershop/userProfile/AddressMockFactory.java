@@ -14,18 +14,18 @@ public class AddressMockFactory {
 
     public List<Address> createAddresses(int addressCount) {
         return Stream.generate(this::createAddress)
-                .limit(addressCount)
-                .collect(Collectors.toList());
+            .limit(addressCount)
+            .collect(Collectors.toList());
     }
 
     private Address createAddress() {
         return Address.builder()
-                .name(faker.name().name())
-                .street(faker.address().streetAddress())
-                .zipCode(faker.address().zipCode())
-                .city(faker.address().city())
-                .country(faker.address().country())
-                .build();
+            .name(faker.name().name())
+            .street(faker.address().streetAddress())
+            .zipCode(faker.address().zipCode())
+            .city(faker.address().city())
+            .country(faker.address().country())
+            .build();
     }
 
 }

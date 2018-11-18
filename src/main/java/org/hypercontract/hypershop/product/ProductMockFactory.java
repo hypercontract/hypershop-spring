@@ -15,17 +15,17 @@ public class ProductMockFactory {
 
     public List<Product> createProducts(int productCount) {
         return Stream.generate(this::createProduct)
-                .limit(productCount)
-                .collect(Collectors.toList());
+            .limit(productCount)
+            .collect(Collectors.toList());
     }
 
     private Product createProduct() {
         return Product.builder()
-                .name(faker.commerce().productName())
-                .description(faker.lorem().paragraph())
-                .price(createPrice())
-                .image(createImage())
-                .build();
+            .name(faker.commerce().productName())
+            .description(faker.lorem().paragraph())
+            .price(createPrice())
+            .image(createImage())
+            .build();
     }
 
     private BigDecimal createPrice() {
@@ -34,8 +34,8 @@ public class ProductMockFactory {
 
     private String createImage() {
         return faker.internet().image()
-                .concat("?")
-                .concat(faker.internet().uuid());
+            .concat("?")
+            .concat(faker.internet().uuid());
     }
 
 }
