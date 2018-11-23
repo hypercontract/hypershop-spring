@@ -2,7 +2,7 @@ package org.hypercontract.hypershop.userProfile;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.*;
-import org.hypercontract.hypershop.resource.ResourceId;
+import org.hypercontract.hypershop.resource.Id;
 
 @Builder
 @AllArgsConstructor
@@ -11,7 +11,7 @@ public class PaymentOption {
 
     @Getter
     @JsonUnwrapped(prefix = "_")
-    private final PaymentOptionId id = new PaymentOptionId();
+    private final Id<PaymentOption> id = new Id();
 
     @Getter
     private final String accountOwner;
@@ -21,12 +21,5 @@ public class PaymentOption {
 
     @Getter
     private final String bic;
-
-    @NoArgsConstructor
-    public static final class PaymentOptionId extends ResourceId {
-        public PaymentOptionId(String id) {
-            super(id);
-        }
-    }
 
 }

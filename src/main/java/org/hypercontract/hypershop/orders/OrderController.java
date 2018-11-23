@@ -1,13 +1,13 @@
 package org.hypercontract.hypershop.orders;
 
 import lombok.AllArgsConstructor;
+import org.hypercontract.hypershop.resource.Id;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartController;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.hypercontract.hypershop.orders.Order.OrderId;
 
 import java.net.URI;
 import java.util.List;
@@ -26,7 +26,7 @@ public class OrderController {
 
     @GetMapping("{orderId}")
     public Order getById(
-        @PathVariable() OrderId orderId
+        @PathVariable() Id<Order> orderId
     ) {
         return orderService.getById(orderId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

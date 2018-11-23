@@ -12,11 +12,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Getter
-public class ResourceId {
+public class Id<T> {
 
     private final String id;
 
-    public ResourceId() {
+    public Id() {
         this.id = UUID.randomUUID().toString();
     }
 

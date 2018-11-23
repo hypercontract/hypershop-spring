@@ -3,7 +3,7 @@ package org.hypercontract.hypershop.shoppingCart;
 import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.mock.MockData;
 import org.hypercontract.hypershop.product.Product;
-import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem.ShoppingCartItemId;
+import org.hypercontract.hypershop.resource.Id;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,7 +18,7 @@ class ShoppingCartService {
         return mockData.getShoppingCart();
     }
 
-    public Optional<ShoppingCartItem> getItemById(ShoppingCartItemId id) {
+    public Optional<ShoppingCartItem> getItemById(Id<ShoppingCartItem> id) {
         return mockData.getShoppingCart().getItems().stream()
             .parallel()
             .filter(shoppingCartItem -> shoppingCartItem.getId().toString().equals(id))

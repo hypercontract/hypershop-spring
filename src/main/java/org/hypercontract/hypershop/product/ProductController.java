@@ -1,7 +1,7 @@
 package org.hypercontract.hypershop.product;
 
 import lombok.AllArgsConstructor;
-import org.hypercontract.hypershop.product.Product.ProductId;
+import org.hypercontract.hypershop.resource.Id;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,7 +18,7 @@ public class ProductController {
 
     @GetMapping("{productId}")
     public Product getById(
-        @PathVariable() ProductId productId
+        @PathVariable() Id<Product> productId
     ) {
         return productService.getById(productId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

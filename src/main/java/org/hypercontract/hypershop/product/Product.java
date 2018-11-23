@@ -2,7 +2,7 @@ package org.hypercontract.hypershop.product;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.*;
-import org.hypercontract.hypershop.resource.ResourceId;
+import org.hypercontract.hypershop.resource.Id;
 
 import java.math.BigDecimal;
 
@@ -13,7 +13,7 @@ public class Product {
 
     @Getter
     @JsonUnwrapped(prefix = "_")
-    private final ProductId id = new ProductId();
+    private final Id<Product> id = new Id();
 
     @Getter
     private final String name;
@@ -26,12 +26,5 @@ public class Product {
 
     @Getter
     private final String image;
-
-    @NoArgsConstructor
-    public static final class ProductId extends ResourceId {
-        public ProductId(String id) {
-            super(id);
-        }
-    }
 
 }

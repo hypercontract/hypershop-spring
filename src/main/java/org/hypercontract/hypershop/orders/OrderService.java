@@ -2,9 +2,9 @@ package org.hypercontract.hypershop.orders;
 
 import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.mock.MockData;
+import org.hypercontract.hypershop.resource.Id;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
 import org.springframework.stereotype.Service;
-import org.hypercontract.hypershop.orders.Order.OrderId;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,7 @@ class OrderService {
 
     private final MockData mockData;
 
-    public Optional<Order> getById(OrderId id) {
+    public Optional<Order> getById(Id<Order> id) {
         return mockData.getOrders().stream()
             .parallel()
             .filter(order -> order.getId().equals(id))

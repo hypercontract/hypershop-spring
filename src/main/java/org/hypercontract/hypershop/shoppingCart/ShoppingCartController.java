@@ -2,6 +2,7 @@ package org.hypercontract.hypershop.shoppingCart;
 
 import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.product.ProductController;
+import org.hypercontract.hypershop.resource.Id;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class ShoppingCartController {
 
     @GetMapping("/items/{shoppingCartItemId}")
     public ShoppingCartItem getItemById(
-        @PathVariable() ShoppingCartItem.ShoppingCartItemId shoppingCartItemId
+        @PathVariable() Id<ShoppingCartItem> shoppingCartItemId
     ) {
         return shoppingCartService.getItemById(shoppingCartItemId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

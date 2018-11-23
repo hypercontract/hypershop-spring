@@ -4,9 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem.ShoppingCartItemId;
-import org.hypercontract.hypershop.userProfile.Address.AddressId;
-import org.hypercontract.hypershop.userProfile.PaymentOption.PaymentOptionId;
+import org.hypercontract.hypershop.resource.Id;
+import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
+import org.hypercontract.hypershop.userProfile.Address;
+import org.hypercontract.hypershop.userProfile.PaymentOption;
 
 import java.util.List;
 
@@ -16,15 +17,15 @@ import java.util.List;
 public class NewOrder {
 
     @Getter
-    private final List<ShoppingCartItemId> items;
+    private final List<Id<ShoppingCartItem>> items;
 
     @Getter
-    private final AddressId billingAddress;
+    private final Id<Address> billingAddress;
 
     @Getter
-    private final AddressId shippingAddress;
+    private final Id<Address> shippingAddress;
 
     @Getter
-    private final PaymentOptionId payment;
+    private final Id<PaymentOption> payment;
 
 }

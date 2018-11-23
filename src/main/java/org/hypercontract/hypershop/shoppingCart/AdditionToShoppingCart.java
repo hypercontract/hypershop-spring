@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import org.hypercontract.hypershop.product.Product.ProductId;
+import org.hypercontract.hypershop.product.Product;
+import org.hypercontract.hypershop.resource.Id;
 
 @Builder
 @AllArgsConstructor
@@ -12,7 +13,7 @@ import org.hypercontract.hypershop.product.Product.ProductId;
 public class AdditionToShoppingCart {
 
     @Getter
-    private final ProductId productId;
+    private final Id<Product> productId;
 
     @Getter
     private final int quantity;
