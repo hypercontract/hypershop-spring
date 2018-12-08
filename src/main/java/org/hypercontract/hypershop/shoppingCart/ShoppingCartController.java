@@ -3,10 +3,8 @@ package org.hypercontract.hypershop.shoppingCart;
 import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.product.ProductController;
 import org.hypercontract.hypershop.resource.Id;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 
@@ -30,8 +28,7 @@ public class ShoppingCartController {
     public ShoppingCartItem getItemById(
         @PathVariable() Id<ShoppingCartItem> shoppingCartItemId
     ) {
-        return shoppingCartService.getItemById(shoppingCartItemId)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return shoppingCartService.getItemById(shoppingCartItemId);
     }
 
     @PostMapping("/items")
@@ -40,12 +37,20 @@ public class ShoppingCartController {
     ) {
         var product = productController.getById(additionToShoppingCart.getProduct());
 
-        ShoppingCartItem shoppingCartItem = shoppingCartService.createItem(additionToShoppingCart, product);
+        shoppingCartService.addItem(additionToShoppingCart, product);
 
-        URI orderUri = linkTo(methodOn(ShoppingCartController.class).getItemById(shoppingCartItem.getId())).toUri();
+        URI shoppingCartUri = linkTo(methodOn(ShoppingCartController.class).get()).toUri();
         return ResponseEntity
-            .created(orderUri)
+            .created(shoppingCartUri)
             .build();
+    }
+
+    @PatchMapping("/items/{shoppingCartItemId}")
+    public ShoppingCartItem updateItemQuantity(
+        @PathVariable() Id<ShoppingCartItem> shoppingCartItemId,
+        @RequestBody QuantityUpdate quantityUpdate
+    ) {
+        return shoppingCartService.updateItemQuantity(shoppingCartItemId, quantityUpdate);
     }
 
 }
