@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -14,7 +15,7 @@ public class ShoppingCart {
 
     @Getter
     @Builder.Default
-    private final List<ShoppingCartItem> items = List.of();
+    private final List<ShoppingCartItem> items = new ArrayList<>();
 
     @JsonGetter("totalPrice")
     public BigDecimal getTotalPrice() {
