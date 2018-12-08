@@ -38,7 +38,7 @@ public class ShoppingCartController {
     public ResponseEntity<Void> createItem(
         @RequestBody AdditionToShoppingCart additionToShoppingCart
     ) {
-        var product = productController.getById(additionToShoppingCart.getProductId());
+        var product = productController.getById(additionToShoppingCart.getProduct());
 
         ShoppingCartItem shoppingCartItem = shoppingCartService.createItem(additionToShoppingCart, product);
 

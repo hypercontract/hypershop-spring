@@ -13,7 +13,7 @@ import org.hypercontract.hypershop.resource.Id;
 public class AdditionToShoppingCart {
 
     @Getter
-    private final Id<Product> productId;
+    private final Id<Product> product;
 
     @Getter
     private final int quantity;
