@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @EqualsAndHashCode
@@ -14,7 +15,7 @@ import java.util.UUID;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Getter
 @JsonDeserialize(using = IdDeserializer.class)
-public class Id<T> {
+public class Id<T> implements Serializable {
 
     private final String id;
 

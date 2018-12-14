@@ -8,6 +8,7 @@ public class IdConverter implements Converter<String, Id> {
 
     @Override
     public Id convert(String id) {
-        return new Id(id);
+        return IdMapper.toId(id);
     }
+
 }

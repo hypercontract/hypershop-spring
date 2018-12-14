@@ -1,40 +1,48 @@
 package org.hypercontract.hypershop.product;
 
 import lombok.AllArgsConstructor;
-import org.hypercontract.hypershop.mock.MockData;
+import org.hypercontract.hypershop.product.jpa.ProductEntityMapper;
+import org.hypercontract.hypershop.product.jpa.ProductRepository;
 import org.hypercontract.hypershop.resource.Id;
+import org.mapstruct.factory.Mappers;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
 class ProductService {
 
-    private final MockData mockData;
+    private final ProductRepository productRepository;
 
-    public Optional<Product> getById(Id<Product> id) {
-        return mockData.getProducts().stream()
-            .parallel()
-            .filter(product -> product.getId().equals(id))
-            .findAny();
+    private final ProductEntityMapper entityMapper = Mappers.getMapper(ProductEntityMapper.class);
+
+    public Product getById(Id<Product> id) {
+        return productRepository.findById(id.toString())
+            .map(entityMapper::toProduct)
+            .orElseThrow(() -> new EntityNotFoundException());
     }
 
-    public Stream<Product> findAll() {
-        return mockData.getProducts().stream();
+    public List<Product> findAll() {
+        try(var products = productRepository.findAll()) {
+            return products
+                .map(entityMapper::toProduct)
+                .collect(Collectors.toList());
+        }
     }
 
-    public Stream<Product> findByQuery(String query) {
-        return this.findAll()
-            .filter(product -> matchesQuery(product, query));
-    }
-
-    private boolean matchesQuery(Product product, String query) {
-        return (
-            product.getName().toLowerCase().contains(query) ||
-                product.getDescription().toLowerCase().contains(query)
-        );
+    public List<Product> findByQuery(String query) {
+        try(var products = productRepository.findByNameContainingIgnoreCase(query)) {
+            return products
+                .map(entityMapper::toProduct)
+                .collect(Collectors.toList());
+        }
     }
 
 }

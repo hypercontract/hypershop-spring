@@ -9,6 +9,8 @@ import java.io.IOException;
 
 public class IdDeserializer extends StdDeserializer<Id> {
 
+    private IdConverter converter = new IdConverter();
+
     public IdDeserializer() {
         this(null);
     }
@@ -19,7 +21,6 @@ public class IdDeserializer extends StdDeserializer<Id> {
 
     @Override
     public Id deserialize(JsonParser parser, DeserializationContext context) throws IOException, JsonProcessingException {
-        var converter = new IdConverter();
         return converter.convert(parser.getText());
     }
 

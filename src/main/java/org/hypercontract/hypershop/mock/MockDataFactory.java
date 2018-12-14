@@ -38,7 +38,6 @@ public class MockDataFactory {
         return MockData.builder()
             .addresses(addresses)
             .paymentOptions(paymentOptions)
-            .products(products)
             .shoppingCart(new ShoppingCart())
             .orders(orders)
             .build();

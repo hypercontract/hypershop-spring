@@ -25,9 +25,6 @@ public class MockData {
     private final List<PaymentOption> paymentOptions;
 
     @Getter
-    private final List<Product> products;
-
-    @Getter
     private final ShoppingCart shoppingCart;
 
     @Getter

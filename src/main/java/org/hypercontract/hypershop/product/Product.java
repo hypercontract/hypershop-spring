@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 public class Product {
 
     @Getter
+    @Builder.Default
     @JsonUnwrapped(prefix = "_")
     private final Id<Product> id = new Id();
 
