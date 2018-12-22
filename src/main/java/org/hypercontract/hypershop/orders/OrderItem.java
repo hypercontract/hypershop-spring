@@ -14,10 +14,6 @@ import java.math.BigDecimal;
 public class OrderItem {
 
     @Getter
-    @JsonUnwrapped(prefix = "_")
-    private final Id<OrderItem> id = new Id();
-
-    @Getter
     private final String name;
 
     @Getter
