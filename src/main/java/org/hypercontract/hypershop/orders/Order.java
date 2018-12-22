@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class Order {
 
     @Getter
+    @Builder.Default
     @JsonUnwrapped(prefix = "_")
     private final Id<Order> id = new Id();
 
@@ -26,33 +27,41 @@ public class Order {
     private OrderStatus status = OrderStatus.PROCESSING;
 
     @Getter
+    private final LocalDateTime date;
+
+    @Getter
     private final List<OrderItem> items;
 
     @Getter
-    private final Id<Address> billingAddress;
+    private final OrderAddress billingAddress;
 
     @Getter
-    private final Id<Address> shippingAddress;
+    private final OrderAddress shippingAddress;
 
     @Getter
-    private final Id<PaymentOption> payment;
-
-    @Getter
-    private final LocalDateTime date;
+    private final OrderPayment payment;
 
     public static class OrderBuilder {
-
-        public OrderBuilder fromNewOrder(NewOrder newOrder) {
-            this.billingAddress = newOrder.getBillingAddress();
-            this.shippingAddress = newOrder.getShippingAddress();
-            this.payment = newOrder.getPayment();
-            return this;
-        }
 
         public OrderBuilder fromShoppingCartItems(List<ShoppingCartItem> shoppingCartItems) {
             this.items = shoppingCartItems.stream()
                 .map(shoppingCartItem -> OrderItem.builder().fromShoppingCartItem(shoppingCartItem).build())
                 .collect(Collectors.toList());
+            return this;
+        }
+
+        public OrderBuilder fromBillingAddress(Address billingAddress) {
+            this.billingAddress = OrderAddress.builder().fromAddress(billingAddress).build();
+            return this;
+        }
+
+        public OrderBuilder fromShippingAddress(Address shippingAddress) {
+            this.shippingAddress = OrderAddress.builder().fromAddress(shippingAddress).build();
+            return this;
+        }
+
+        public OrderBuilder fromPaymentOption(PaymentOption payment) {
+            this.payment = OrderPayment.builder().fromPaymentOption(payment).build();
             return this;
         }
 

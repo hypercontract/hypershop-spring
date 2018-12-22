@@ -1,12 +1,17 @@
 package org.hypercontract.hypershop.orders;
 
 import com.github.javafaker.Faker;
+import lombok.AllArgsConstructor;
+import org.hypercontract.hypershop.orders.jpa.OrderEntityMapper;
+import org.hypercontract.hypershop.orders.jpa.OrderRepository;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCart;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
 import org.hypercontract.hypershop.userProfile.Address;
 import org.hypercontract.hypershop.userProfile.PaymentOption;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -15,24 +20,31 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class OrderMockFactory {
 
     private final Faker faker = new Faker();
 
+    private final OrderRepository orderRepository;
+
+    private final OrderEntityMapper orderEntityMapper = Mappers.getMapper(OrderEntityMapper.class);
+
+    @Transactional
     public List<Order> createOrders(List<ShoppingCart> shoppingCarts, List<Address> addresses, List<PaymentOption> paymentOptions) {
         return shoppingCarts.stream()
             .map(shoppingCart -> createOrder(shoppingCart, addresses, paymentOptions))
+            .peek(order -> orderRepository.save(
+                orderEntityMapper.toEntity(order)
+            ))
             .collect(Collectors.toList());
     }
 
     private Order createOrder(ShoppingCart shoppingCart, List<Address> addresses, List<PaymentOption> paymentOptions) {
         return Order.builder()
-            .fromNewOrder(getRandomNewOrder(
-                shoppingCart.getItems(),
-                getRandomAddress(addresses),
-                getRandomAddress(addresses),
-                getRandomPaymentOption(paymentOptions)
-            ))
+            .fromShoppingCartItems(shoppingCart.getItems())
+            .fromBillingAddress(getRandomAddress(addresses))
+            .fromShippingAddress(getRandomAddress(addresses))
+            .fromPaymentOption(getRandomPaymentOption(paymentOptions))
             .date(getRandomDate())
             .status(getRandomOrderStatus())
             .build();

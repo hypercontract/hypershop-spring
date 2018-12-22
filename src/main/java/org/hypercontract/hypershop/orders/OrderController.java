@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.resource.Id;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartController;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
+import org.hypercontract.hypershop.userProfile.Address;
+import org.hypercontract.hypershop.userProfile.PaymentOption;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +30,12 @@ public class OrderController {
     public Order getById(
         @PathVariable() Id<Order> orderId
     ) {
-        return orderService.getById(orderId)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return orderService.getById(orderId);
     }
 
     @GetMapping()
     public List<Order> getAll() {
-        return orderService.findAll().collect(Collectors.toList());
+        return orderService.findAll();
     }
 
     @PostMapping
@@ -45,7 +46,17 @@ public class OrderController {
             .map(shoppingCartItemId -> shoppingCartController.getItemById(shoppingCartItemId))
             .collect(Collectors.toList());
 
-        Order order = orderService.create(newOrder, shoppingCartItems);
+        // TODO load via UserProfileController
+        Address shippingAddress = Address.builder().build();
+        Address billingAddress = Address.builder().build();
+        PaymentOption payment = PaymentOption.builder().build();
+
+        Order order = orderService.create(
+            shoppingCartItems,
+            shippingAddress,
+            billingAddress,
+            payment
+        );
 
         URI orderUri = linkTo(methodOn(OrderController.class).getById(order.getId())).toUri();
         return ResponseEntity
