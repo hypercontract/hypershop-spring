@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 public class ShoppingCartItem {
 
     @Getter
+    @Builder.Default
     @JsonUnwrapped(prefix = "_")
     private final Id<ShoppingCartItem> id = new Id();
 

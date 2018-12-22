@@ -10,6 +10,7 @@ import org.hypercontract.hypershop.resource.Id;
 public class Address {
 
     @Getter
+    @Builder.Default
     @JsonUnwrapped(prefix = "_")
     private final Id<Address> id = new Id();
 

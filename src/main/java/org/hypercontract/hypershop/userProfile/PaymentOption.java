@@ -10,6 +10,7 @@ import org.hypercontract.hypershop.resource.Id;
 public class PaymentOption {
 
     @Getter
+    @Builder.Default
     @JsonUnwrapped(prefix = "_")
     private final Id<PaymentOption> id = new Id();
 
