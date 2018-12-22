@@ -37,6 +37,7 @@ class ProductService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<Product> findByQuery(String query) {
         try(var products = productRepository.findByNameContainingIgnoreCase(query)) {
             return products
