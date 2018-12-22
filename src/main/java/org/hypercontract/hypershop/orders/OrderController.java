@@ -1,15 +1,16 @@
 package org.hypercontract.hypershop.orders;
 
 import lombok.AllArgsConstructor;
+import org.hypercontract.hypershop.mock.MockData;
+import org.hypercontract.hypershop.orders.model.NewOrder;
+import org.hypercontract.hypershop.orders.model.Order;
 import org.hypercontract.hypershop.resource.Id;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartController;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
 import org.hypercontract.hypershop.userProfile.Address;
 import org.hypercontract.hypershop.userProfile.PaymentOption;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.util.List;
@@ -23,6 +24,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @AllArgsConstructor
 public class OrderController {
 
+    private final MockData mockData;
     private final OrderService orderService;
     private final ShoppingCartController shoppingCartController;
 
@@ -47,9 +49,18 @@ public class OrderController {
             .collect(Collectors.toList());
 
         // TODO load via UserProfileController
-        Address shippingAddress = Address.builder().build();
-        Address billingAddress = Address.builder().build();
-        PaymentOption payment = PaymentOption.builder().build();
+        Address shippingAddress = mockData.getAddresses().stream()
+            .filter(address -> address.getId().equals(newOrder.getShippingAddress()))
+            .findAny()
+            .get();
+        Address billingAddress = mockData.getAddresses().stream()
+            .filter(address -> address.getId().equals(newOrder.getBillingAddress()))
+            .findAny()
+            .get();
+        PaymentOption payment = mockData.getPaymentOptions().stream()
+            .filter(paymentOption -> paymentOption.getId().equals(newOrder.getPayment()))
+            .findAny()
+            .get();
 
         Order order = orderService.create(
             shoppingCartItems,
