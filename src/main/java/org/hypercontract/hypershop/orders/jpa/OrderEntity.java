@@ -1,14 +1,9 @@
 package org.hypercontract.hypershop.orders.jpa;
 
 import lombok.Data;
-import lombok.Getter;
-import org.hypercontract.hypershop.orders.OrderItem;
-import org.hypercontract.hypershop.orders.OrderStatus;
-import org.hypercontract.hypershop.userProfile.Address;
-import org.hypercontract.hypershop.userProfile.PaymentOption;
+import org.hypercontract.hypershop.orders.model.OrderStatus;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 

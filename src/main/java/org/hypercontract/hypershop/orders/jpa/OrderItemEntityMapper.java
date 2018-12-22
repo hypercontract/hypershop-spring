@@ -1,11 +1,8 @@
 package org.hypercontract.hypershop.orders.jpa;
 
-import org.hypercontract.hypershop.orders.Order;
-import org.hypercontract.hypershop.orders.OrderItem;
+import org.hypercontract.hypershop.orders.model.OrderItem;
 import org.hypercontract.hypershop.resource.IdMapper;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 

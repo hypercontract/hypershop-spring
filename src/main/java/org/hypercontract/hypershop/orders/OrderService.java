@@ -1,11 +1,9 @@
 package org.hypercontract.hypershop.orders;
 
 import lombok.AllArgsConstructor;
-import org.hypercontract.hypershop.mock.MockData;
 import org.hypercontract.hypershop.orders.jpa.OrderEntityMapper;
 import org.hypercontract.hypershop.orders.jpa.OrderRepository;
-import org.hypercontract.hypershop.product.Product;
-import org.hypercontract.hypershop.product.jpa.ProductEntityMapper;
+import org.hypercontract.hypershop.orders.model.Order;
 import org.hypercontract.hypershop.resource.Id;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
 import org.hypercontract.hypershop.userProfile.Address;
@@ -15,9 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
@@ -46,13 +42,13 @@ class OrderService {
         List<ShoppingCartItem> shoppingCartItems,
         Address billingAddress,
         Address shippingAddress,
-        PaymentOption payment
+        PaymentOption paymentOption
     ) {
         Order order = Order.builder()
             .fromShoppingCartItems(shoppingCartItems)
             .fromBillingAddress(billingAddress)
             .fromShippingAddress(shippingAddress)
-            .fromPaymentOption(payment)
+            .fromPaymentOption(paymentOption)
             .build();
 
         orderRepository.save(

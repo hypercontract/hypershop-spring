@@ -1,7 +1,7 @@
 package org.hypercontract.hypershop.orders.jpa;
 
+import org.hypercontract.hypershop.orders.model.OrderAddress;
 import org.hypercontract.hypershop.resource.IdMapper;
-import org.hypercontract.hypershop.userProfile.Address;
 import org.mapstruct.Mapper;
 
 @Mapper(
@@ -9,8 +9,8 @@ import org.mapstruct.Mapper;
 )
 public interface OrderAddressEntityMapper {
 
-    Address toOrderAddress(OrderAddressEntity orderAddressEntity);
+    OrderAddress toOrderAddress(OrderAddressEntity orderAddressEntity);
 
-    OrderAddressEntity toEntity(Address orderAddress);
+    OrderAddressEntity toEntity(OrderAddress orderAddress);
 
 }

@@ -1,11 +1,9 @@
-package org.hypercontract.hypershop.orders;
+package org.hypercontract.hypershop.orders.model;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import org.hypercontract.hypershop.resource.Id;
 import org.hypercontract.hypershop.userProfile.Address;
 
 @Builder
