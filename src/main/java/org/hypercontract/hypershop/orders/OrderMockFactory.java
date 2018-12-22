@@ -31,6 +31,9 @@ public class OrderMockFactory {
     private final OrderRepository orderRepository;
 
     private final OrderEntityMapper orderEntityMapper = Mappers.getMapper(OrderEntityMapper.class);
+    private final OrderItemMapper itemMapper = Mappers.getMapper(OrderItemMapper.class);
+    private final OrderAddressMapper addressMapper = Mappers.getMapper(OrderAddressMapper.class);
+    private final OrderPaymentMapper paymentMapper = Mappers.getMapper(OrderPaymentMapper.class);
 
     @Transactional
     public List<Order> createOrders(List<ShoppingCart> shoppingCarts, List<Address> addresses, List<PaymentOption> paymentOptions) {
@@ -44,10 +47,10 @@ public class OrderMockFactory {
 
     private Order createOrder(ShoppingCart shoppingCart, List<Address> addresses, List<PaymentOption> paymentOptions) {
         return Order.builder()
-            .fromShoppingCartItems(shoppingCart.getItems())
-            .fromBillingAddress(getRandomAddress(addresses))
-            .fromShippingAddress(getRandomAddress(addresses))
-            .fromPaymentOption(getRandomPaymentOption(paymentOptions))
+            .items(itemMapper.toOrderItems(shoppingCart.getItems()))
+            .billingAddress(addressMapper.toOrderAddress(getRandomAddress(addresses)))
+            .shippingAddress(addressMapper.toOrderAddress(getRandomAddress(addresses)))
+            .payment(paymentMapper.toOrderPayment(getRandomPaymentOption(paymentOptions)))
             .date(getRandomDate())
             .status(getRandomOrderStatus())
             .build();

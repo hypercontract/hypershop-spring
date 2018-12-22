@@ -22,6 +22,9 @@ class OrderService {
     private final OrderRepository orderRepository;
 
     private final OrderEntityMapper entityMapper = Mappers.getMapper(OrderEntityMapper.class);
+    private final OrderItemMapper itemMapper = Mappers.getMapper(OrderItemMapper.class);
+    private final OrderAddressMapper addressMapper = Mappers.getMapper(OrderAddressMapper.class);
+    private final OrderPaymentMapper paymentMapper = Mappers.getMapper(OrderPaymentMapper.class);
 
 
     public Order getById(Id<Order> id) {
@@ -45,10 +48,10 @@ class OrderService {
         PaymentOption paymentOption
     ) {
         Order order = Order.builder()
-            .fromShoppingCartItems(shoppingCartItems)
-            .fromBillingAddress(billingAddress)
-            .fromShippingAddress(shippingAddress)
-            .fromPaymentOption(paymentOption)
+            .items(itemMapper.toOrderItems(shoppingCartItems))
+            .billingAddress(addressMapper.toOrderAddress(billingAddress))
+            .shippingAddress(addressMapper.toOrderAddress(shippingAddress))
+            .payment(paymentMapper.toOrderPayment(paymentOption))
             .build();
 
         orderRepository.save(

@@ -28,15 +28,5 @@ public class OrderItem {
     @Getter
     private final Id<Product> product;
 
-    public static class OrderItemBuilder {
-
-        public OrderItemBuilder fromShoppingCartItem(ShoppingCartItem shoppingCartItem) {
-            this.name = shoppingCartItem.getName();
-            this.description = shoppingCartItem.getDescription();
-            this.price = shoppingCartItem.getPrice();
-            this.quantity = shoppingCartItem.getQuantity();
-            this.product = shoppingCartItem.getProduct();
-            return this;
-        }
-    }
+    public static class OrderItemBuilder {}
 }

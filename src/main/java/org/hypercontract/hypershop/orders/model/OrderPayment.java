@@ -20,14 +20,6 @@ public class OrderPayment {
     @Getter
     private final String bic;
 
-    public static class OrderPaymentBuilder {
-
-        public OrderPayment.OrderPaymentBuilder fromPaymentOption(PaymentOption paymentOption) {
-            this.accountOwner = paymentOption.getAccountOwner();
-            this.iban = paymentOption.getIban();
-            this.bic = paymentOption.getBic();
-            return this;
-        }
-    }
+    public static class OrderPaymentBuilder {}
 
 }

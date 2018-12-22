@@ -26,16 +26,6 @@ public class OrderAddress {
     @Getter
     private final String country;
 
-    public static class OrderAddressBuilder {
-
-        public OrderAddress.OrderAddressBuilder fromAddress(Address address) {
-            this.name = address.getName();
-            this.street = address.getStreet();
-            this.zipCode = address.getZipCode();
-            this.city = address.getCity();
-            this.country = address.getCountry();
-            return this;
-        }
-    }
+    public static class OrderAddressBuilder {}
 
 }
