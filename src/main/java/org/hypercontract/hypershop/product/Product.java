@@ -1,7 +1,10 @@
 package org.hypercontract.hypershop.product;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 import org.hypercontract.hypershop.resource.Id;
 
 import java.math.BigDecimal;
@@ -13,7 +16,7 @@ public class Product {
 
     @Getter
     @Builder.Default
-    @JsonUnwrapped(prefix = "_")
+    @JsonProperty("_id")
     private final Id<Product> id = new Id();
 
     @Getter

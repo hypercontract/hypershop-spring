@@ -1,13 +1,11 @@
 package org.hypercontract.hypershop.orders.model;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hypercontract.hypershop.resource.Id;
-import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Builder
 @AllArgsConstructor
@@ -17,7 +15,7 @@ public class Order {
 
     @Getter
     @Builder.Default
-    @JsonUnwrapped(prefix = "_")
+    @JsonProperty("_id")
     private final Id<Order> id = new Id();
 
     @Getter

@@ -1,7 +1,7 @@
 package org.hypercontract.hypershop.shoppingCart;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hypercontract.hypershop.product.Product;
 import org.hypercontract.hypershop.resource.Id;
@@ -16,7 +16,7 @@ public class ShoppingCartItem {
 
     @Getter
     @Builder.Default
-    @JsonUnwrapped(prefix = "_")
+    @JsonProperty("_id")
     private final Id<ShoppingCartItem> id = new Id();
 
     @Getter
