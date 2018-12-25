@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 public interface OrderRepository extends Repository<OrderEntity, String> {
 
-    OrderEntity save(OrderEntity product);
+    OrderEntity save(OrderEntity order);
 
     Optional<OrderEntity> findById(String id);
 
