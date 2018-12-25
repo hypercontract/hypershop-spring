@@ -1,7 +1,6 @@
 package org.hypercontract.hypershop.orders.jpa;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import lombok.*;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
