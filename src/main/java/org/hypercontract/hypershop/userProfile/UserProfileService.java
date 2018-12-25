@@ -1,6 +1,7 @@
 package org.hypercontract.hypershop.userProfile;
 
 import lombok.AllArgsConstructor;
+import org.hypercontract.hypershop.resource.Id;
 import org.hypercontract.hypershop.userProfile.jpa.AddressEntityMapper;
 import org.hypercontract.hypershop.userProfile.jpa.AddressRepository;
 import org.hypercontract.hypershop.userProfile.jpa.PaymentOptionEntityMapper;
@@ -8,6 +9,7 @@ import org.hypercontract.hypershop.userProfile.jpa.PaymentOptionRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +28,18 @@ class UserProfileService {
             .addresses(getAddresses())
             .paymentOptions(getPaymentOptions())
             .build();
+    }
+
+    public Address getAddressById(Id<Address> id) {
+        return addressRepository.findById(id.toString())
+            .map(addressEntityMapper::toAddress)
+            .orElseThrow(() -> new EntityNotFoundException());
+    }
+
+    public PaymentOption getPaymentOptionById(Id<PaymentOption> id) {
+        return paymentOptionRepository.findById(id.toString())
+            .map(paymentOptionEntityMapper::toPaymentOption)
+            .orElseThrow(() -> new EntityNotFoundException());
     }
 
     private List<Address> getAddresses() {
