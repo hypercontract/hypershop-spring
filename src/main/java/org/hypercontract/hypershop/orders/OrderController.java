@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.mock.MockData;
 import org.hypercontract.hypershop.orders.model.NewOrder;
 import org.hypercontract.hypershop.orders.model.Order;
+import org.hypercontract.hypershop.orders.model.StatusUpdate;
 import org.hypercontract.hypershop.resource.Id;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartController;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
@@ -62,9 +63,24 @@ public class OrderController {
             payment
         );
 
-        URI orderUri = linkTo(methodOn(OrderController.class).getById(order.getId())).toUri();
+        return getRedirection(HttpStatus.CREATED, order.getId());
+    }
+
+    @PatchMapping("{orderId}")
+    public ResponseEntity<Void> updateOrderStatus(
+        @PathVariable Id<Order> orderId,
+        @RequestBody StatusUpdate statusUpdate
+    ) {
+        Order order = orderService.updateStatus(orderId, statusUpdate.getStatus());
+        return getRedirection(HttpStatus.SEE_OTHER, order.getId());
+    }
+
+    private ResponseEntity<Void> getRedirection(HttpStatus status, Id<Order> orderId) {
+        URI orderUri = linkTo(methodOn(OrderController.class).getById(orderId)).toUri();
+
         return ResponseEntity
-            .created(orderUri)
+            .status(status)
+            .location(orderUri)
             .build();
     }
 

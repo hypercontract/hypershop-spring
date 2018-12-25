@@ -19,6 +19,7 @@ public class Order {
     private final Id<Order> id = new Id();
 
     @Getter
+    @Setter
     @Builder.Default
     private OrderStatus status = OrderStatus.PROCESSING;
 
