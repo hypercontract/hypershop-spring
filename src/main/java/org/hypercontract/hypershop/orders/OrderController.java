@@ -2,9 +2,6 @@ package org.hypercontract.hypershop.orders;
 
 import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.mock.MockData;
-import org.hypercontract.hypershop.orders.model.NewOrder;
-import org.hypercontract.hypershop.orders.model.Order;
-import org.hypercontract.hypershop.orders.model.StatusUpdate;
 import org.hypercontract.hypershop.resource.Id;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartController;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;

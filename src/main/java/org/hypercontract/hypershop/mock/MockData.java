@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import org.hypercontract.hypershop.orders.model.Order;
+import org.hypercontract.hypershop.orders.Order;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCart;
 import org.hypercontract.hypershop.userProfile.Address;
 import org.hypercontract.hypershop.userProfile.PaymentOption;
