@@ -1,10 +1,6 @@
 package org.hypercontract.hypershop.orders;
 
 import lombok.AllArgsConstructor;
-import org.hypercontract.hypershop.orders.jpa.OrderEntityMapper;
-import org.hypercontract.hypershop.orders.jpa.OrderRepository;
-import org.hypercontract.hypershop.orders.model.Order;
-import org.hypercontract.hypershop.orders.model.OrderStatus;
 import org.hypercontract.hypershop.resource.Id;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
 import org.hypercontract.hypershop.userProfile.Address;
@@ -24,26 +20,25 @@ class OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final OrderEntityMapper entityMapper = Mappers.getMapper(OrderEntityMapper.class);
     private final OrderItemMapper itemMapper = Mappers.getMapper(OrderItemMapper.class);
     private final OrderAddressMapper addressMapper = Mappers.getMapper(OrderAddressMapper.class);
     private final OrderPaymentMapper paymentMapper = Mappers.getMapper(OrderPaymentMapper.class);
 
-
+    @Transactional(readOnly = true)
     public Order getById(Id<Order> id) {
-        return orderRepository.findById(id.toString())
-            .map(entityMapper::toOrder)
+        return orderRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException());
     }
 
+    @Transactional(readOnly = true)
     public List<Order> findAll() {
         try(var orders = orderRepository.findAll()) {
             return orders
-                .map(entityMapper::toOrder)
                 .collect(Collectors.toList());
         }
     }
 
+    @Transactional
     public Order create(
         List<ShoppingCartItem> shoppingCartItems,
         Address billingAddress,
@@ -68,9 +63,7 @@ class OrderService {
     }
 
     private Order save(Order order) {
-        orderRepository.save(
-            entityMapper.toEntity(order)
-        );
+        orderRepository.save(order);
         return order;
     }
 }

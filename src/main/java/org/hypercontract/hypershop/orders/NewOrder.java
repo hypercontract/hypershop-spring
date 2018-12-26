@@ -1,4 +1,4 @@
-package org.hypercontract.hypershop.orders.model;
+package org.hypercontract.hypershop.orders;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

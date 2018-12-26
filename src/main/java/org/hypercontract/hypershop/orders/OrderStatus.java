@@ -1,4 +1,4 @@
-package org.hypercontract.hypershop.orders.model;
+package org.hypercontract.hypershop.orders;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;

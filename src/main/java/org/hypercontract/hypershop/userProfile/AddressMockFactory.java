@@ -2,9 +2,6 @@ package org.hypercontract.hypershop.userProfile;
 
 import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
-import org.hypercontract.hypershop.userProfile.jpa.AddressEntityMapper;
-import org.hypercontract.hypershop.userProfile.jpa.AddressRepository;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,14 +16,10 @@ public class AddressMockFactory {
 
     private final AddressRepository addressRepository;
 
-    private final AddressEntityMapper addressEntityMapper = Mappers.getMapper(AddressEntityMapper.class);
-
     public List<Address> createAddresses(int addressCount) {
         return Stream.generate(this::createAddress)
             .limit(addressCount)
-            .peek(address -> addressRepository.save(
-                addressEntityMapper.toEntity(address)
-            ))
+            .peek(address -> addressRepository.save(address))
             .collect(Collectors.toList());
     }
 

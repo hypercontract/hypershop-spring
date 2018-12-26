@@ -2,11 +2,6 @@ package org.hypercontract.hypershop.orders;
 
 import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
-import org.hypercontract.hypershop.orders.jpa.OrderEntityMapper;
-import org.hypercontract.hypershop.orders.jpa.OrderRepository;
-import org.hypercontract.hypershop.orders.model.NewOrder;
-import org.hypercontract.hypershop.orders.model.Order;
-import org.hypercontract.hypershop.orders.model.OrderStatus;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCart;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
 import org.hypercontract.hypershop.userProfile.Address;
@@ -30,7 +25,6 @@ public class OrderMockFactory {
 
     private final OrderRepository orderRepository;
 
-    private final OrderEntityMapper orderEntityMapper = Mappers.getMapper(OrderEntityMapper.class);
     private final OrderItemMapper itemMapper = Mappers.getMapper(OrderItemMapper.class);
     private final OrderAddressMapper addressMapper = Mappers.getMapper(OrderAddressMapper.class);
     private final OrderPaymentMapper paymentMapper = Mappers.getMapper(OrderPaymentMapper.class);
@@ -39,9 +33,7 @@ public class OrderMockFactory {
     public List<Order> createOrders(List<ShoppingCart> shoppingCarts, List<Address> addresses, List<PaymentOption> paymentOptions) {
         return shoppingCarts.stream()
             .map(shoppingCart -> createOrder(shoppingCart, addresses, paymentOptions))
-            .peek(order -> orderRepository.save(
-                orderEntityMapper.toEntity(order)
-            ))
+            .peek(order -> orderRepository.save(order))
             .collect(Collectors.toList());
     }
 

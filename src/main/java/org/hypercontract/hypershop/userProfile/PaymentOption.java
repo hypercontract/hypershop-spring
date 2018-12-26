@@ -1,13 +1,14 @@
 package org.hypercontract.hypershop.userProfile;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 import org.hypercontract.hypershop.resource.Id;
 
+import javax.persistence.Entity;
+
+@Entity
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class PaymentOption {
@@ -15,15 +16,16 @@ public class PaymentOption {
     @Getter
     @Builder.Default
     @JsonProperty("_id")
-    private final Id<PaymentOption> id = new Id();
+    @javax.persistence.Id
+    private Id<PaymentOption> id = new Id();
 
     @Getter
-    private final String accountOwner;
+    private String accountOwner;
 
     @Getter
-    private final String iban;
+    private String iban;
 
     @Getter
-    private final String bic;
+    private String bic;
 
 }

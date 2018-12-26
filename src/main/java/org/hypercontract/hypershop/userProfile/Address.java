@@ -1,13 +1,14 @@
 package org.hypercontract.hypershop.userProfile;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 import org.hypercontract.hypershop.resource.Id;
 
+import javax.persistence.Entity;
+
+@Entity
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Address {
@@ -15,21 +16,22 @@ public class Address {
     @Getter
     @Builder.Default
     @JsonProperty("_id")
-    private final Id<Address> id = new Id();
+    @javax.persistence.Id
+    private Id<Address> id = new Id();
 
     @Getter
-    private final String name;
+    private String name;
 
     @Getter
-    private final String street;
+    private String street;
 
     @Getter
-    private final String zipCode;
+    private String zipCode;
 
     @Getter
-    private final String city;
+    private String city;
 
     @Getter
-    private final String country;
+    private String country;
 
 }

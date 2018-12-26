@@ -1,15 +1,16 @@
 package org.hypercontract.hypershop.product;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 import org.hypercontract.hypershop.resource.Id;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.math.BigDecimal;
 
+@Entity
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Product {
@@ -17,18 +18,20 @@ public class Product {
     @Getter
     @Builder.Default
     @JsonProperty("_id")
-    private final Id<Product> id = new Id();
+    @javax.persistence.Id
+    private Id<Product> id = new Id();
 
     @Getter
-    private final String name;
+    private String name;
 
     @Getter
-    private final String description;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
     @Getter
-    private final BigDecimal price;
+    private BigDecimal price;
 
     @Getter
-    private final String image;
+    private String image;
 
 }
