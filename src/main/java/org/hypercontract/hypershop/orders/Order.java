@@ -23,8 +23,7 @@ public class Order {
 
     @Getter
     @Setter
-    @Builder.Default
-    private OrderStatus status = OrderStatus.PROCESSING;
+    private OrderStatus status;
 
     @Getter
     private LocalDateTime date;

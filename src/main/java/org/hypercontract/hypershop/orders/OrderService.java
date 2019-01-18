@@ -46,6 +46,7 @@ class OrderService {
         PaymentOption paymentOption
     ) {
         Order order = Order.builder()
+            .status(PAYMENT_DUE)
             .items(itemMapper.toOrderItems(shoppingCartItems))
             .billingAddress(addressMapper.toOrderAddress(billingAddress))
             .shippingAddress(addressMapper.toOrderAddress(shippingAddress))
