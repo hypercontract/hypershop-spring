@@ -43,6 +43,11 @@ class ShoppingCartService {
         return updateItemQuantity(shoppingCartItem, quantityUpdate.getQuantity());
     }
 
+    public void removeItem(Id<ShoppingCartItem> id) {
+        var shoppingCartItem = getItemById(id);
+        removeItem(shoppingCartItem);
+    }
+
     private ShoppingCartItem createItem(AdditionToShoppingCart additionToShoppingCart, Product product) {
         ShoppingCartItem shoppingCartItem = ShoppingCartItem.builder()
                 .fromProduct(product)
@@ -64,6 +69,10 @@ class ShoppingCartService {
     private ShoppingCartItem updateItemQuantity(ShoppingCartItem shoppingCartItem, int quantity) {
         shoppingCartItem.setQuantity(quantity);
         return shoppingCartItem;
+    }
+
+    private void removeItem(ShoppingCartItem shoppingCartItem) {
+        mockData.getShoppingCart().getItems().remove(shoppingCartItem);
     }
 
     private Optional<ShoppingCartItem> findByProduct(Id<Product> productId) {
