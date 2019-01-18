@@ -1,36 +1,37 @@
 package org.hypercontract.hypershop.shoppingCart;
 
 import lombok.AllArgsConstructor;
-import org.hypercontract.hypershop.mock.MockData;
 import org.hypercontract.hypershop.product.Product;
 import org.hypercontract.hypershop.resource.Id;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 class ShoppingCartService {
 
-    private final MockData mockData;
+    private final ShoppingCartItemRepository shoppingCartItemRepository;
 
+    @Transactional(readOnly = true)
     public ShoppingCart get() {
-        return mockData.getShoppingCart();
-    }
-
-    public Optional<ShoppingCartItem> findItemById(Id<ShoppingCartItem> id) {
-        return findByPredicate(shoppingCartItem -> shoppingCartItem.getId().equals(id));
+        return ShoppingCart.builder()
+            .items(findAllItems())
+            .build();
     }
 
     public ShoppingCartItem getItemById(Id<ShoppingCartItem> id) {
-        return this.findItemById(id)
+        return findItemById(id)
             .orElseThrow(() -> new EntityNotFoundException());
     }
 
+    @Transactional()
     public ShoppingCartItem addItem(AdditionToShoppingCart additionToShoppingCart, Product product) {
-        var existingItem = findByProduct(product.getId());
+        var existingItem = shoppingCartItemRepository.findByProduct(product.getId());
 
         existingItem.ifPresent(item -> increaseItemQuantity(item, additionToShoppingCart.getQuantity()));
 
@@ -38,14 +39,26 @@ class ShoppingCartService {
             .orElseGet(() -> createItem(additionToShoppingCart, product));
     }
 
+    @Transactional()
     public ShoppingCartItem updateItemQuantity(Id<ShoppingCartItem> id, QuantityUpdate quantityUpdate) {
         var shoppingCartItem = getItemById(id);
         return updateItemQuantity(shoppingCartItem, quantityUpdate.getQuantity());
     }
 
+    @Transactional()
     public void removeItem(Id<ShoppingCartItem> id) {
-        var shoppingCartItem = getItemById(id);
-        removeItem(shoppingCartItem);
+        shoppingCartItemRepository.deleteById(id);
+    }
+
+    private List<ShoppingCartItem> findAllItems() {
+        try(var shoppingCartItem = shoppingCartItemRepository.findAll()) {
+            return shoppingCartItem
+                .collect(Collectors.toList());
+        }
+    }
+
+    private Optional<ShoppingCartItem> findItemById(Id<ShoppingCartItem> id) {
+        return shoppingCartItemRepository.findById(id);
     }
 
     private ShoppingCartItem createItem(AdditionToShoppingCart additionToShoppingCart, Product product) {
@@ -54,9 +67,7 @@ class ShoppingCartService {
                 .quantity(additionToShoppingCart.getQuantity())
                 .build();
 
-        mockData.getShoppingCart().getItems().add(shoppingCartItem);
-
-        return shoppingCartItem;
+        return shoppingCartItemRepository.save(shoppingCartItem);
     }
 
     private ShoppingCartItem increaseItemQuantity(ShoppingCartItem shoppingCartItem, int quantityIncrease) {
@@ -71,21 +82,5 @@ class ShoppingCartService {
         return shoppingCartItem;
     }
 
-    private void removeItem(ShoppingCartItem shoppingCartItem) {
-        mockData.getShoppingCart().getItems().remove(shoppingCartItem);
-    }
-
-    private Optional<ShoppingCartItem> findByProduct(Id<Product> productId) {
-        return findByPredicate(
-            shoppingCartItem -> shoppingCartItem.getProduct().equals(productId)
-        );
-    }
-
-    private Optional<ShoppingCartItem> findByPredicate(Predicate<ShoppingCartItem> predicate) {
-        return mockData.getShoppingCart().getItems().stream()
-                .parallel()
-                .filter(predicate)
-                .findAny();
-    }
 
 }
