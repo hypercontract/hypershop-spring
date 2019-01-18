@@ -1,7 +1,6 @@
 package org.hypercontract.hypershop.orders;
 
 import lombok.AllArgsConstructor;
-import org.hypercontract.hypershop.mock.MockData;
 import org.hypercontract.hypershop.resource.Id;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartController;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
@@ -24,7 +23,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @AllArgsConstructor
 public class OrderController {
 
-    private final MockData mockData;
     private final OrderService orderService;
     private final ShoppingCartController shoppingCartController;
     private final UserProfileController userProfileController;
