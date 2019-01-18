@@ -8,23 +8,21 @@ import org.hypercontract.hypershop.product.ProductController;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCart;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartController;
 import org.hypercontract.hypershop.userProfile.UserProfileController;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.stereotype.Service;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Stream;
 
-@Service
+import static org.springframework.core.Ordered.LOWEST_PRECEDENCE;
+
+@Component
 @AllArgsConstructor
-@DependsOn({
-    "productDataInitializer",
-    "addressDataInitializer",
-    "paymentOptionDataInitializer"
-})
-class OrderMockDataInitializer implements InitializingBean {
+class OrderMockDataInitializer {
 
     private static final int ORDER_COUNT = 10;
     private static final int MAX_SHOPPING_CART_ITEM_COUNT = 3;
@@ -37,8 +35,9 @@ class OrderMockDataInitializer implements InitializingBean {
     private final MockAdditionToShoppingCartBuilder mockAdditionToShoppingCartBuilder;
     private final MockNewOrderBuilder mockNewOrderBuilder;
 
-    @Override
-    public void afterPropertiesSet() {
+    @EventListener
+    @Order(LOWEST_PRECEDENCE)
+    public void onContextRefreshed(ContextRefreshedEvent event) {
         var userProfile = userProfileController.get();
         var addresses = userProfile.getAddresses();
         var paymentOptions = userProfile.getPaymentOptions();

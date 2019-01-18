@@ -1,14 +1,17 @@
 package org.hypercontract.hypershop.product.mock;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Service;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 
-@Service
+@Component
 @AllArgsConstructor
-class ProductDataInitializer implements InitializingBean {
+class ProductDataInitializer {
 
     private static final int PRODUCT_COUNT = 100;
 
@@ -16,9 +19,10 @@ class ProductDataInitializer implements InitializingBean {
 
     private final ProductDataInitializerRepository productDataInitializerRepository;
 
-    @Override
+    @EventListener
+    @Order(HIGHEST_PRECEDENCE)
     @Transactional
-    public void afterPropertiesSet() {
+    public void onContextRefreshed(ContextRefreshedEvent event) {
         mockProductBuilder.buildMany()
             .limit(PRODUCT_COUNT)
             .forEach(product -> productDataInitializerRepository.save(product));

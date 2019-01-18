@@ -29,7 +29,7 @@ class ShoppingCartService {
             .orElseThrow(() -> new EntityNotFoundException());
     }
 
-    @Transactional()
+    @Transactional
     public ShoppingCartItem addItem(AdditionToShoppingCart additionToShoppingCart, Product product) {
         var existingItem = shoppingCartItemRepository.findByProduct(product.getId());
 
@@ -39,15 +39,20 @@ class ShoppingCartService {
             .orElseGet(() -> createItem(additionToShoppingCart, product));
     }
 
-    @Transactional()
+    @Transactional
     public ShoppingCartItem updateItemQuantity(Id<ShoppingCartItem> id, QuantityUpdate quantityUpdate) {
         var shoppingCartItem = getItemById(id);
         return updateItemQuantity(shoppingCartItem, quantityUpdate.getQuantity());
     }
 
-    @Transactional()
+    @Transactional
     public void removeItem(Id<ShoppingCartItem> id) {
         shoppingCartItemRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void emptyShoppingCart() {
+        shoppingCartItemRepository.deleteAll();
     }
 
     private List<ShoppingCartItem> findAllItems() {

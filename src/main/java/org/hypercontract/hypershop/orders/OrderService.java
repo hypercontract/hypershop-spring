@@ -6,6 +6,7 @@ import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
 import org.hypercontract.hypershop.userProfile.Address;
 import org.hypercontract.hypershop.userProfile.PaymentOption;
 import org.mapstruct.factory.Mappers;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,9 +15,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.hypercontract.hypershop.orders.OrderStatus.PAYMENT_DUE;
+
 @Service
 @AllArgsConstructor
 class OrderService {
+
+    private final ApplicationEventPublisher eventPublisher;
 
     private final OrderRepository orderRepository;
 
@@ -53,7 +58,12 @@ class OrderService {
             .payment(paymentMapper.toOrderPayment(paymentOption))
             .date(LocalDateTime.now())
             .build();
-        return save(order);
+
+        save(order);
+
+        eventPublisher.publishEvent(new OrderPlaced());
+
+        return order;
     }
 
     @Transactional

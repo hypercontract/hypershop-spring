@@ -19,4 +19,6 @@ public interface ShoppingCartItemRepository extends Repository<ShoppingCartItem,
 
     void deleteById(Id<ShoppingCartItem> id);
 
+    void deleteAll();
+
 }
