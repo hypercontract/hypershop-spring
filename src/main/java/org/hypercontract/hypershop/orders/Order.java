@@ -10,8 +10,8 @@ import java.util.List;
 
 @Entity
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class Order {
 

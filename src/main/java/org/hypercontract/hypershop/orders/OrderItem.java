@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 
 @Entity
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class OrderItem {
 
