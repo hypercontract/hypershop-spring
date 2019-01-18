@@ -39,7 +39,7 @@ class OrderService {
     }
 
     @Transactional
-    public Order create(
+    public Order placeOrder(
         List<ShoppingCartItem> shoppingCartItems,
         Address billingAddress,
         Address shippingAddress,

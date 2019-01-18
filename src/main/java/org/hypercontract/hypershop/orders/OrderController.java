@@ -42,7 +42,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(
+    public ResponseEntity<Void> placeOrder(
         @RequestBody NewOrder newOrder
     ) {
         List<ShoppingCartItem> shoppingCartItems = newOrder.getItems().stream()
@@ -53,7 +53,7 @@ public class OrderController {
         Address billingAddress = userProfileController.getAddressById(newOrder.getBillingAddress());
         PaymentOption payment = userProfileController.getPaymentOptionById(newOrder.getPayment());
 
-        Order order = orderService.create(
+        Order order = orderService.placeOrder(
             shoppingCartItems,
             shippingAddress,
             billingAddress,

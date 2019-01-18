@@ -32,7 +32,7 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/items")
-    public ResponseEntity<Void> createItem(
+    public ResponseEntity<Void> addItem(
         @RequestBody AdditionToShoppingCart additionToShoppingCart
     ) {
         var product = productController.getById(additionToShoppingCart.getProduct());
