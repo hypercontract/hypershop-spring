@@ -32,7 +32,7 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/items")
-    public ResponseEntity<Void> createItem(
+    public ResponseEntity<Void> addItem(
         @RequestBody AdditionToShoppingCart additionToShoppingCart
     ) {
         var product = productController.getById(additionToShoppingCart.getProduct());
@@ -40,17 +40,27 @@ public class ShoppingCartController {
         shoppingCartService.addItem(additionToShoppingCart, product);
 
         URI shoppingCartUri = linkTo(methodOn(ShoppingCartController.class).get()).toUri();
+
         return ResponseEntity
             .created(shoppingCartUri)
             .build();
     }
 
     @PatchMapping("/items/{shoppingCartItemId}")
-    public ShoppingCartItem updateItemQuantity(
+    public ShoppingCart updateItemQuantity(
         @PathVariable() Id<ShoppingCartItem> shoppingCartItemId,
         @RequestBody QuantityUpdate quantityUpdate
     ) {
-        return shoppingCartService.updateItemQuantity(shoppingCartItemId, quantityUpdate);
+        shoppingCartService.updateItemQuantity(shoppingCartItemId, quantityUpdate);
+        return get();
+    }
+
+    @DeleteMapping("/items/{shoppingCartItemId}")
+    public ShoppingCart removeItem(
+        @PathVariable() Id<ShoppingCartItem> shoppingCartItemId
+    ) {
+        shoppingCartService.removeItem(shoppingCartItemId);
+        return get();
     }
 
 }

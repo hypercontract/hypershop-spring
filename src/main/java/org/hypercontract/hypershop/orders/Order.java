@@ -9,10 +9,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "ORDERS")
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class Order {
 
@@ -24,8 +23,7 @@ public class Order {
 
     @Getter
     @Setter
-    @Builder.Default
-    private OrderStatus status = OrderStatus.PROCESSING;
+    private OrderStatus status;
 
     @Getter
     private LocalDateTime date;

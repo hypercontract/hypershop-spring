@@ -8,8 +8,6 @@ import java.util.stream.Stream;
 
 public interface AddressRepository extends Repository<Address, Id<Address>> {
 
-    Address save(Address address);
-
     Optional<Address> findById(Id<Address> id);
 
     Stream<Address> findAll();

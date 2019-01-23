@@ -2,8 +2,7 @@ package org.hypercontract.hypershop;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-import org.hypercontract.hypershop.mock.MockData;
-import org.hypercontract.hypershop.mock.MockDataFactory;
+import com.github.javafaker.Faker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,9 +15,9 @@ public class HypershopApplication {
 	}
 
 	@Bean
-    public MockData mockData(MockDataFactory mockDataFactory) {
-	    return mockDataFactory.createMockData();
-    }
+	public Faker faker() {
+		return new Faker();
+	}
 
 	@Bean
 	protected Module jacksonHibernateModule() {

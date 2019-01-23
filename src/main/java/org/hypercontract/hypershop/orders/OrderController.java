@@ -1,7 +1,6 @@
 package org.hypercontract.hypershop.orders;
 
 import lombok.AllArgsConstructor;
-import org.hypercontract.hypershop.mock.MockData;
 import org.hypercontract.hypershop.resource.Id;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartController;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
@@ -24,7 +23,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @AllArgsConstructor
 public class OrderController {
 
-    private final MockData mockData;
     private final OrderService orderService;
     private final ShoppingCartController shoppingCartController;
     private final UserProfileController userProfileController;
@@ -42,7 +40,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(
+    public ResponseEntity<Void> placeOrder(
         @RequestBody NewOrder newOrder
     ) {
         List<ShoppingCartItem> shoppingCartItems = newOrder.getItems().stream()
@@ -53,7 +51,7 @@ public class OrderController {
         Address billingAddress = userProfileController.getAddressById(newOrder.getBillingAddress());
         PaymentOption payment = userProfileController.getPaymentOptionById(newOrder.getPayment());
 
-        Order order = orderService.create(
+        Order order = orderService.placeOrder(
             shoppingCartItems,
             shippingAddress,
             billingAddress,

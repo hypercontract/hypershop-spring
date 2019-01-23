@@ -6,34 +6,39 @@ import lombok.*;
 import org.hypercontract.hypershop.product.Product;
 import org.hypercontract.hypershop.resource.Id;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.math.BigDecimal;
 
+@Entity
 @Builder
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 @ToString
 public class ShoppingCartItem {
 
     @Getter
     @Builder.Default
     @JsonProperty("_id")
-    private final Id<ShoppingCartItem> id = new Id();
+    @javax.persistence.Id
+    private Id<ShoppingCartItem> id = new Id();
 
     @Getter
-    private final String name;
+    private String name;
 
     @Getter
-    private final String description;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
     @Getter
-    private final BigDecimal price;
+    private BigDecimal price;
 
     @Getter
     @Setter(AccessLevel.PACKAGE)
     private int quantity;
 
     @Getter
-    private final Id<Product> product;
+    private Id<Product> product;
 
     @JsonIgnore
     public BigDecimal getTotalPrice() {
