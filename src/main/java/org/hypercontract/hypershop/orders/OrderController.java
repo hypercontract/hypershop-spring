@@ -2,6 +2,7 @@ package org.hypercontract.hypershop.orders;
 
 import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.resource.Id;
+import org.hypercontract.hypershop.http.RequestBodyMapping;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartController;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartItem;
 import org.hypercontract.hypershop.userProfile.Address;
@@ -15,6 +16,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.hypercontract.hypershop.orders.OrderStatus.CANCELLED;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -62,11 +64,22 @@ public class OrderController {
     }
 
     @PatchMapping("{orderId}")
-    public ResponseEntity<Void> updateOrderStatus(
+    @RequestBodyMapping("Cancelled")
+    public ResponseEntity<Void> cancelOrder(
         @PathVariable Id<Order> orderId,
         @RequestBody StatusUpdate statusUpdate
     ) {
-        Order order = orderService.updateStatus(orderId, statusUpdate.getStatus());
+        Order order = orderService.cancelOrder(orderId);
+        return getRedirection(HttpStatus.SEE_OTHER, order.getId());
+    }
+
+    @PatchMapping("{orderId}")
+    @RequestBodyMapping("Returned")
+    public ResponseEntity<Void> returnOrder(
+        @PathVariable Id<Order> orderId,
+        @RequestBody StatusUpdate statusUpdate
+    ) {
+        Order order = orderService.returnOrder(orderId);
         return getRedirection(HttpStatus.SEE_OTHER, order.getId());
     }
 

@@ -3,9 +3,12 @@ package org.hypercontract.hypershop;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.github.javafaker.Faker;
+import org.hypercontract.hypershop.http.RequestBodyMappingHandlerMapping;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 @SpringBootApplication
 public class HypershopApplication {
@@ -24,5 +27,15 @@ public class HypershopApplication {
 		var module = new Hibernate5Module();
 		module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING, true);
 		return module;
+	}
+
+	@Bean
+	public WebMvcRegistrations webMvcRegistrations() {
+		return new WebMvcRegistrations() {
+			@Override
+			public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
+				return new RequestBodyMappingHandlerMapping();
+			}
+		};
 	}
 }

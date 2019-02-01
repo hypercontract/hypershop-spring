@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.hypercontract.hypershop.orders.OrderStatus.PAYMENT_DUE;
+import static org.hypercontract.hypershop.orders.OrderStatus.*;
 
 @Service
 @AllArgsConstructor
@@ -67,7 +67,16 @@ class OrderService {
     }
 
     @Transactional
-    public Order updateStatus(Id<Order> id, OrderStatus status) {
+    public Order cancelOrder(Id<Order> id) {
+        return updateStatus(id, CANCELLED);
+    }
+
+    @Transactional
+    public Order returnOrder(Id<Order> id) {
+        return updateStatus(id, RETURNED);
+    }
+
+    private Order updateStatus(Id<Order> id, OrderStatus status) {
         Order order = getById(id);
         order.setStatus(status);
         return save(order);
