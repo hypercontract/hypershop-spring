@@ -9,6 +9,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RequestBodyMapping {
 
-    String[] value() default {};
+    Class[] value();
+
+    String condition() default "";
 
 }

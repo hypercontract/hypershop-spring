@@ -1,10 +1,6 @@
 package org.hypercontract.hypershop.orders;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
-
-import java.util.Arrays;
 
 public enum OrderStatus {
     CANCELLED("Cancelled"),
@@ -26,6 +22,10 @@ public enum OrderStatus {
     @JsonValue
     public String toString() {
         return status;
+    }
+
+    public boolean is(String value) {
+        return toString().equals(value);
     }
 
 }

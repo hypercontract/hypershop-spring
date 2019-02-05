@@ -22,7 +22,7 @@ public class RequestBodyMappingHandlerMapping extends RequestMappingHandlerMappi
             return null;
         }
 
-        return new RequestBodyRequestCondition(accessMapping.value());
+        return new RequestBodyRequestCondition(accessMapping.value(), accessMapping.condition());
     }
 
 }
