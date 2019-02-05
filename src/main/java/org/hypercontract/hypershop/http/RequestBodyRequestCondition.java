@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RequestBodyRequestCondition implements RequestCondition<RequestBodyRequestCondition> {
 
@@ -38,7 +39,7 @@ public class RequestBodyRequestCondition implements RequestCondition<RequestBody
 
     @Override
     public RequestBodyRequestCondition getMatchingCondition(HttpServletRequest request) {
-        if (isPatch(request) == false) {
+        if (isMethodWithRequestBody(request) == false) {
             return null;
         }
 
@@ -53,8 +54,11 @@ public class RequestBodyRequestCondition implements RequestCondition<RequestBody
         return Arrays.compare(targetClassNames, otherTargetClassNames);
     }
 
-    private boolean isPatch(HttpServletRequest request) {
-        return "PATCH".equalsIgnoreCase(request.getMethod());
+    private boolean isMethodWithRequestBody(HttpServletRequest request) {
+        return Stream.of("POST", "PUT", "PATCH")
+                .filter(method -> method.equals(request.getMethod()))
+                .findAny()
+                .isPresent();
     }
 
     private boolean bodyMatches(HttpServletRequest request, Class[] targetClasses, String condition) {
