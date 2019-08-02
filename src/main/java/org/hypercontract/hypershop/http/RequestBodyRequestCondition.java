@@ -111,7 +111,7 @@ public class RequestBodyRequestCondition implements RequestCondition<RequestBody
     }
 
     private String[] toClassNames(Class[] classes) {
-        var classNames = Arrays.stream(this.targetClasses)
+        var classNames = Arrays.stream(classes)
             .map(Class::getName)
             .toArray(String[]::new);
         Arrays.sort(classNames);
