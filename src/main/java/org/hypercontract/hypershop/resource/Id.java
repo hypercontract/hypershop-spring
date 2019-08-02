@@ -2,11 +2,9 @@ package org.hypercontract.hypershop.resource;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 import java.util.UUID;
