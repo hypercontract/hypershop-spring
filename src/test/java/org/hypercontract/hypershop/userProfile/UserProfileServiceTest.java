@@ -33,7 +33,7 @@ public class UserProfileServiceTest {
     private final PaymentOptionTestData paymentOptionTestData = PaymentOptionTestData.getInstance();
 
     @Test
-    public void getReturnsAUserProfile() {
+    public void getReturnsTheUserProfile() {
         var expectedAddresses = addressTestData.getAddresses();
         var expectedPaymentOptions = paymentOptionTestData.getPaymentOptions();
         when(addressRepository.findAll()).thenReturn(expectedAddresses.stream());
