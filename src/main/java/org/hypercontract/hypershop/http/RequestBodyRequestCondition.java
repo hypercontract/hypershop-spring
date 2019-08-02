@@ -22,7 +22,7 @@ public class RequestBodyRequestCondition implements RequestCondition<RequestBody
     private final Class[] targetClasses;
     private final String condition;
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     RequestBodyRequestCondition(Class[] targetClasses, String condition) {
         this.targetClasses = targetClasses;

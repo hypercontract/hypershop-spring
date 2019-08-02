@@ -12,8 +12,8 @@ public class ProductTestData {
 
     private static final int PRODUCT_COUNT = 5;
 
-    private List<Product> products;
-    private Product product;
+    private final List<Product> products;
+    private final Product product;
 
     private ProductTestData(MockProductBuilder mockProductBuilder) {
         this.products = mockProductBuilder.buildMany()

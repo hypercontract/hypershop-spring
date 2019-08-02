@@ -12,8 +12,8 @@ public class OrderTestData {
 
     private static final int ORDER_COUNT = 3;
 
-    private List<Order> orders;
-    private Order order;
+    private final List<Order> orders;
+    private final Order order;
 
     private OrderTestData() {
         var orderItemTestData = OrderItemTestData.getInstance();

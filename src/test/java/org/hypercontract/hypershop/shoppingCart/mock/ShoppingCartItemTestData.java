@@ -12,8 +12,8 @@ public class ShoppingCartItemTestData {
 
     private static final int SHOPPING_CART_ITEM_COUNT = 3;
 
-    private List<ShoppingCartItem> shoppingCartItems;
-    private ShoppingCartItem shoppingCartItem;
+    private final List<ShoppingCartItem> shoppingCartItems;
+    private final ShoppingCartItem shoppingCartItem;
 
     private ShoppingCartItemTestData() {
         this.shoppingCartItems = ProductTestData.getInstance().getProducts().stream()

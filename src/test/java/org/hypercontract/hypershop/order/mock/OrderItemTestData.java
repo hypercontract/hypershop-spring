@@ -12,8 +12,8 @@ public class OrderItemTestData {
 
     private static final int ORDER_ITEM_COUNT = 3;
 
-    private List<OrderItem> orderItems;
-    private OrderItem orderItem;
+    private final List<OrderItem> orderItems;
+    private final OrderItem orderItem;
 
     private OrderItemTestData() {
         this.orderItems = ShoppingCartItemTestData.getInstance().getShoppingCartItems().stream()

@@ -12,8 +12,8 @@ public class PaymentOptionTestData {
 
     private static final int PAYMENT_OPTION_COUNT = 5;
 
-    private List<PaymentOption> paymentOptions;
-    private PaymentOption paymentOption;
+    private final List<PaymentOption> paymentOptions;
+    private final PaymentOption paymentOption;
 
     private PaymentOptionTestData(MockPaymentOptionBuilder mockPaymentOptionBuilder) {
         this.paymentOptions = mockPaymentOptionBuilder.buildMany()

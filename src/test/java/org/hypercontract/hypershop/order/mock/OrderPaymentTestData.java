@@ -12,8 +12,8 @@ public class OrderPaymentTestData {
 
     private static final int ORDER_PAYMENT_OPTION_COUNT = 2;
 
-    private List<OrderPayment> orderPayments;
-    private OrderPayment orderPayment;
+    private final List<OrderPayment> orderPayments;
+    private final OrderPayment orderPayment;
 
     private OrderPaymentTestData() {
         this.orderPayments = PaymentOptionTestData.getInstance().getPaymentOptions().stream()

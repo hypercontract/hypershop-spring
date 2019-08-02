@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ShoppingCartTestData {
 
-    private ShoppingCart shoppingCart;
+    private final ShoppingCart shoppingCart;
 
     private ShoppingCartTestData() {
         this.shoppingCart = ShoppingCart.builder()

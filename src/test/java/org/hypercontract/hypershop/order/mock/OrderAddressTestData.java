@@ -12,9 +12,9 @@ public class OrderAddressTestData {
 
     private static final int ORDER_ADDRESS_COUNT = 2;
 
-    private List<OrderAddress> orderAddresses;
-    private OrderAddress orderAddress;
-    private OrderAddress anotherOrderAddress;
+    private final List<OrderAddress> orderAddresses;
+    private final OrderAddress orderAddress;
+    private final OrderAddress anotherOrderAddress;
 
     private OrderAddressTestData() {
         this.orderAddresses = AddressTestData.getInstance().getAddresses().stream()

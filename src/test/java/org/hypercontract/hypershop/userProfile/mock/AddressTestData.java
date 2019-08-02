@@ -12,9 +12,9 @@ public class AddressTestData {
 
     private static final int ADDRESS_COUNT = 5;
 
-    private List<Address> addresses;
-    private Address address;
-    private Address anotherAddress;
+    private final List<Address> addresses;
+    private final Address address;
+    private final Address anotherAddress;
 
     private  AddressTestData(MockAddressBuilder mockAddressBuilder) {
         this.addresses = mockAddressBuilder.buildMany()
