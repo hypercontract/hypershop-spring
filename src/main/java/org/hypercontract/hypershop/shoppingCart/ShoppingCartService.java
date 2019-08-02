@@ -26,7 +26,7 @@ class ShoppingCartService {
 
     public ShoppingCartItem getItemById(Id<ShoppingCartItem> id) {
         return findItemById(id)
-            .orElseThrow(() -> new EntityNotFoundException());
+            .orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional

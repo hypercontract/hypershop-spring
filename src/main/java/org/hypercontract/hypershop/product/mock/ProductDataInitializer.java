@@ -25,7 +25,7 @@ class ProductDataInitializer {
     public void onContextRefreshed(ContextRefreshedEvent event) {
         mockProductBuilder.buildMany()
             .limit(PRODUCT_COUNT)
-            .forEach(product -> productDataInitializerRepository.save(product));
+            .forEach(productDataInitializerRepository::save);
     }
 
 }

@@ -45,7 +45,7 @@ public class OrderController {
         @RequestBody NewOrder newOrder
     ) {
         List<ShoppingCartItem> shoppingCartItems = newOrder.getItems().stream()
-            .map(shoppingCartItemId -> shoppingCartController.getItemById(shoppingCartItemId))
+            .map(shoppingCartController::getItemById)
             .collect(Collectors.toList());
 
         Address shippingAddress = userProfileController.getAddressById(newOrder.getShippingAddress());

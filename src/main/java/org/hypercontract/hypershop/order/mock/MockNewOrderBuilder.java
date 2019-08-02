@@ -29,7 +29,7 @@ class MockNewOrderBuilder {
     private List<Id<ShoppingCartItem>> getShoppingCartItemIds(ShoppingCart shoppingCart) {
         return shoppingCart.getItems()
             .stream()
-            .map(item -> item.getId())
+            .map(ShoppingCartItem::getId)
             .collect(Collectors.toList());
     }
 

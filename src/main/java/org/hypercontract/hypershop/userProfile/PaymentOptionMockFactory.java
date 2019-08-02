@@ -19,7 +19,7 @@ public class PaymentOptionMockFactory {
     public List<PaymentOption> createPaymentOptions(int paymentOptionCount) {
         return Stream.generate(this::createPaymentOption)
             .limit(paymentOptionCount)
-            .peek(paymentOption -> paymentOptionRepository.save(paymentOption))
+            .peek(paymentOptionRepository::save)
             .collect(Collectors.toList());
     }
 

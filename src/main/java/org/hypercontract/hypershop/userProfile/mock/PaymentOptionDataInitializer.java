@@ -25,7 +25,7 @@ class PaymentOptionDataInitializer {
     public void onContextRefreshed(ContextRefreshedEvent event) {
         mockPaymentOptionBuilder.buildMany()
             .limit(PAYMENT_OPTION_COUNT)
-            .forEach(paymentOption -> paymentOptionDataInitializerRepository.save(paymentOption));
+            .forEach(paymentOptionDataInitializerRepository::save);
     }
 
 

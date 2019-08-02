@@ -32,7 +32,7 @@ class OrderService {
     @Transactional(readOnly = true)
     public Order getById(Id<Order> id) {
         return orderRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException());
+            .orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional(readOnly = true)

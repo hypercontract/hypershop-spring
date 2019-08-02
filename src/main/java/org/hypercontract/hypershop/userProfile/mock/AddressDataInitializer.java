@@ -25,7 +25,7 @@ class AddressDataInitializer {
     public void onContextRefreshed(ContextRefreshedEvent event) {
         mockAddressBuilder.buildMany()
             .limit(ADDRESS_COUNT)
-            .forEach(address -> addressDataInitializerRepository.save(address));
+            .forEach(addressDataInitializerRepository::save);
     }
 
 

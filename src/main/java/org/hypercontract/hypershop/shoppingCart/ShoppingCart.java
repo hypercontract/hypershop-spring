@@ -20,7 +20,7 @@ public class ShoppingCart {
     @JsonGetter("totalPrice")
     public BigDecimal getTotalPrice() {
         return items.stream()
-            .map(shoppingCartItem -> shoppingCartItem.getTotalPrice())
-            .reduce( BigDecimal.ZERO, (totalPrice, price) -> totalPrice.add(price));
+            .map(ShoppingCartItem::getTotalPrice)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

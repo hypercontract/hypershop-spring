@@ -7,7 +7,7 @@ public class IdMapper {
     }
 
     public static <T> Id<T> toId(String id) {
-        return new Id<T>(id);
+        return new Id<>(id);
     }
 
 }

@@ -24,12 +24,12 @@ class UserProfileService {
 
     public Address getAddressById(Id<Address> id) {
         return addressRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException());
+            .orElseThrow(EntityNotFoundException::new);
     }
 
     public PaymentOption getPaymentOptionById(Id<PaymentOption> id) {
         return paymentOptionRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException());
+            .orElseThrow(EntityNotFoundException::new);
     }
 
     private List<Address> getAddresses() {

@@ -17,7 +17,7 @@ class ProductService {
 
     public Product getById(Id<Product> id) {
         return productRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException());
+            .orElseThrow(EntityNotFoundException::new);
     }
 
     public List<Product> findAll() {
