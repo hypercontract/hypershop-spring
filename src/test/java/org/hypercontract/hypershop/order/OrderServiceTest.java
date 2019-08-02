@@ -13,8 +13,8 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.Duration;
@@ -22,13 +22,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hypercontract.hypershop.order.OrderStatus.CANCELLED;
+import static org.hypercontract.hypershop.order.OrderStatus.RETURNED;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.hypercontract.hypershop.order.OrderStatus.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class OrderServiceTest {
 
     @InjectMocks
@@ -58,7 +59,7 @@ public class OrderServiceTest {
 
     @Test(expected = EntityNotFoundException.class)
     public void getByIdThrowsIfIdIsInvalid() {
-        when(orderRepository.findById(any())).thenReturn(Optional.empty());
+        when(orderRepository.findById(any(Id.class))).thenReturn(Optional.empty());
 
         orderService.getById(new Id<>());
     }
