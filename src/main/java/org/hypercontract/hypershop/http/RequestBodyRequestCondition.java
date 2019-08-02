@@ -56,9 +56,7 @@ public class RequestBodyRequestCondition implements RequestCondition<RequestBody
 
     private boolean isMethodWithRequestBody(HttpServletRequest request) {
         return Stream.of("POST", "PUT", "PATCH")
-                .filter(method -> method.equals(request.getMethod()))
-                .findAny()
-                .isPresent();
+                .anyMatch(method -> method.equals(request.getMethod()));
     }
 
     private boolean bodyMatches(HttpServletRequest request, Class[] targetClasses, String condition) {
