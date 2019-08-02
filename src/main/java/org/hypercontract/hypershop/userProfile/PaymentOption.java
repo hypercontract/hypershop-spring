@@ -17,7 +17,7 @@ public class PaymentOption {
     @Builder.Default
     @JsonProperty("_id")
     @javax.persistence.Id
-    private Id<PaymentOption> id = new Id();
+    private Id<PaymentOption> id = new Id<>();
 
     @Getter
     private String accountOwner;

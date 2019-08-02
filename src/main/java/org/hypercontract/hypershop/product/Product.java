@@ -19,7 +19,7 @@ public class Product {
     @Builder.Default
     @JsonProperty("_id")
     @javax.persistence.Id
-    private Id<Product> id = new Id();
+    private Id<Product> id = new Id<>();
 
     @Getter
     private String name;

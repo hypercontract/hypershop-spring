@@ -19,7 +19,7 @@ public class Order {
     @Builder.Default
     @JsonProperty("_id")
     @javax.persistence.Id
-    private Id<Order> id = new Id();
+    private Id<Order> id = new Id<>();
 
     @Getter
     @Setter

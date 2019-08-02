@@ -17,7 +17,7 @@ public class Address {
     @Builder.Default
     @JsonProperty("_id")
     @javax.persistence.Id
-    private Id<Address> id = new Id();
+    private Id<Address> id = new Id<>();
 
     @Getter
     private String name;
