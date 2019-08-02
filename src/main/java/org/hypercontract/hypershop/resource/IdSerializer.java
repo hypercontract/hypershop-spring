@@ -8,8 +8,7 @@ import java.io.IOException;
 
 public class IdSerializer extends StdSerializer<Id> {
 
-    private IdConverter converter = new IdConverter();
-
+    // required for JSON serialization
     public IdSerializer() {
         this(null);
     }
