@@ -46,7 +46,7 @@ class BodyCachingRequestWrapper extends HttpServletRequestWrapper {
                 throw new RuntimeException("Not implemented");
             }
 
-            public int read () throws IOException {
+            public int read() {
                 return inputStream.read();
             }
         };
