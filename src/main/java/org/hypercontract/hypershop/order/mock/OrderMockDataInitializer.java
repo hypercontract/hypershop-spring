@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
-import static org.springframework.core.Ordered.LOWEST_PRECEDENCE;
-
 @Component
 @AllArgsConstructor
 class OrderMockDataInitializer {
@@ -35,7 +33,7 @@ class OrderMockDataInitializer {
     private final MockNewOrderBuilder mockNewOrderBuilder;
 
     @EventListener
-    @Order(LOWEST_PRECEDENCE)
+    @Order
     public void onContextRefreshed(ContextRefreshedEvent event) {
         var userProfile = userProfileController.get();
         var addresses = userProfile.getAddresses();
