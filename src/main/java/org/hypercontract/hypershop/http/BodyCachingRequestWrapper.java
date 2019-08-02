@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
 import java.util.stream.Collectors;
 
-public class BodyCachingRequestWrapper extends HttpServletRequestWrapper {
+class BodyCachingRequestWrapper extends HttpServletRequestWrapper {
 
     private final String body;
 
