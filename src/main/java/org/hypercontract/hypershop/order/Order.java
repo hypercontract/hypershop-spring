@@ -44,5 +44,4 @@ public class Order {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private OrderPayment payment;
 
-    public static class OrderBuilder {}
 }

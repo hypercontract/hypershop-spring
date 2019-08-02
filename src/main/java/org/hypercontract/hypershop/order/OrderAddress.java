@@ -34,6 +34,4 @@ public class OrderAddress {
     @Getter
     private String country;
 
-    public static class OrderAddressBuilder {}
-
 }

@@ -36,5 +36,4 @@ public class OrderItem {
     @Getter
     private Id<Product> product;
 
-    public static class OrderItemBuilder {}
 }

@@ -28,6 +28,4 @@ public class OrderPayment {
     @Getter
     private String bic;
 
-    public static class OrderPaymentBuilder {}
-
 }
