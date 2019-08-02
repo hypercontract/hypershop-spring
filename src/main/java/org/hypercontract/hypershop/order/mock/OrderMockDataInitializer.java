@@ -14,7 +14,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Stream;
 
@@ -42,7 +41,7 @@ class OrderMockDataInitializer {
         var addresses = userProfile.getAddresses();
         var paymentOptions = userProfile.getPaymentOptions();
 
-        var products = productController.getByQuery(Optional.empty());
+        var products = productController.getAll();
 
         Stream.generate(() -> prepareShoppingCart(products, MAX_SHOPPING_CART_ITEM_COUNT))
             .map(shoppingCart -> mockNewOrderBuilder.build(shoppingCart, addresses, paymentOptions))

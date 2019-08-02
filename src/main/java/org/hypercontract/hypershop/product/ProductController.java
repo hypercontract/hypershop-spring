@@ -2,15 +2,9 @@ package org.hypercontract.hypershop.product;
 
 import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.resource.Id;
-import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/products")
@@ -27,11 +21,14 @@ public class ProductController {
     }
 
     @GetMapping()
+    public List<Product> getAll() {
+        return productService.findAll();
+    }
+
+    @GetMapping(params = { "query" })
     public List<Product> getByQuery(
-        @RequestParam() Optional<String> query
+        @RequestParam() String query
     ) {
-        return query
-            .map(queryString -> productService.findByQuery(queryString))
-            .orElseGet(productService::findAll);
+        return productService.findByQuery(query);
     }
 }
