@@ -1,4 +1,4 @@
-package org.hypercontract.hypershop.orders;
+package org.hypercontract.hypershop.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

@@ -1,4 +1,4 @@
-package org.hypercontract.hypershop.orders;
+package org.hypercontract.hypershop.order;
 
 import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.resource.Id;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.hypercontract.hypershop.orders.OrderStatus.*;
+import static org.hypercontract.hypershop.order.OrderStatus.*;
 
 @Service
 @AllArgsConstructor

@@ -1,8 +1,8 @@
-package org.hypercontract.hypershop.orders.mock;
+package org.hypercontract.hypershop.order.mock;
 
 import lombok.AllArgsConstructor;
-import org.hypercontract.hypershop.orders.NewOrder;
-import org.hypercontract.hypershop.orders.OrderController;
+import org.hypercontract.hypershop.order.NewOrder;
+import org.hypercontract.hypershop.order.OrderController;
 import org.hypercontract.hypershop.product.Product;
 import org.hypercontract.hypershop.product.ProductController;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCart;

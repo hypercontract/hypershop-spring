@@ -1,4 +1,4 @@
-package org.hypercontract.hypershop.orders;
+package org.hypercontract.hypershop.order;
 
 import org.hypercontract.hypershop.resource.Id;
 import org.junit.Test;
@@ -10,7 +10,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;

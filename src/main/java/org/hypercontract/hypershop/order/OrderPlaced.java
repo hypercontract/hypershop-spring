@@ -1,4 +1,4 @@
-package org.hypercontract.hypershop.orders;
+package org.hypercontract.hypershop.order;
 
 import lombok.Builder;
 import lombok.ToString;

@@ -1,4 +1,4 @@
-package org.hypercontract.hypershop.orders.mock;
+package org.hypercontract.hypershop.order.mock;
 
 import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;

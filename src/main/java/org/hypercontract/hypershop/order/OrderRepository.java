@@ -1,4 +1,4 @@
-package org.hypercontract.hypershop.orders;
+package org.hypercontract.hypershop.order;
 
 import org.hypercontract.hypershop.resource.Id;
 import org.springframework.data.repository.Repository;

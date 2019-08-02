@@ -1,4 +1,4 @@
-package org.hypercontract.hypershop.orders;
+package org.hypercontract.hypershop.order;
 
 import org.hypercontract.hypershop.userProfile.Address;
 import org.mapstruct.Mapper;

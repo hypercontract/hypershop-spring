@@ -1,8 +1,7 @@
-package org.hypercontract.hypershop.orders;
+package org.hypercontract.hypershop.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hypercontract.hypershop.userProfile.PaymentOption;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
