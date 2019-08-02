@@ -22,8 +22,8 @@ public class OrderTestData {
 
         this.orders = Stream.generate(() -> Order.builder()
                 .items(orderItemTestData.getOrderItems())
-                .billingAddress(orderAddressTestData.getOrderAddresses().get(0))
-                .shippingAddress(orderAddressTestData.getOrderAddresses().get(1))
+                .billingAddress(orderAddressTestData.getOrderAddress())
+                .shippingAddress(orderAddressTestData.getAnotherOrderAddress())
                 .payment(orderPaymentTestData.getOrderPayment())
                 .build())
             .limit(ORDER_COUNT)
