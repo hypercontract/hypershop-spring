@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public interface PaymentOptionRepository extends Repository<PaymentOption, Id<PaymentOption>> {
 
-    PaymentOption save(PaymentOption paymentOption);
+    void save(PaymentOption paymentOption);
 
     Optional<PaymentOption> findById(Id<PaymentOption> id);
 

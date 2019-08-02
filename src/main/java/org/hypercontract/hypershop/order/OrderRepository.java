@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public interface OrderRepository extends Repository<Order, Id<Order>> {
 
-    Order save(Order order);
+    void save(Order order);
 
     Optional<Order> findById(Id<Order> id);
 

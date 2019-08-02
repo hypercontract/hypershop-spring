@@ -6,6 +6,6 @@ import org.springframework.data.repository.Repository;
 
 interface PaymentOptionDataInitializerRepository extends Repository<PaymentOption, Id<PaymentOption>> {
 
-    PaymentOption save(PaymentOption paymentOption);
+    void save(PaymentOption paymentOption);
 
 }

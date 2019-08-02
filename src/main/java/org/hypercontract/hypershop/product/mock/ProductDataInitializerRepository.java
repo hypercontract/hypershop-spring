@@ -6,6 +6,6 @@ import org.springframework.data.repository.Repository;
 
 interface ProductDataInitializerRepository extends Repository<Product, Id<Product>> {
 
-    Product save(Product product);
+    void save(Product product);
 
 }

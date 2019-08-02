@@ -6,6 +6,6 @@ import org.springframework.data.repository.Repository;
 
 interface AddressDataInitializerRepository extends Repository<Address, Id<Address>> {
 
-    Address save(Address address);
+    void save(Address address);
 
 }
