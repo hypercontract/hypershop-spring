@@ -2,33 +2,40 @@ package org.hypercontract.hypershop.product;
 
 import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.resource.Id;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.ExposesResourceFor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/products")
 @AllArgsConstructor
+@ExposesResourceFor(Product.class)
 public class ProductController {
 
-    private final ProductService productService;
+	private final ProductService productService;
 
-    @GetMapping("{productId}")
-    public Product getById(
-        @PathVariable() Id<Product> productId
-    ) {
-        return productService.getById(productId);
-    }
+	@Autowired
+	private ProductModelAssembler resourceProcessor;
 
-    @GetMapping()
-    public List<Product> getAll() {
-        return productService.findAll();
-    }
+	@GetMapping("{productId}")
+	public EntityModel<Product> getById(
+			@PathVariable() Id<Product> productId
+	) {
+		return resourceProcessor.toModel(productService.getById(productId));
+	}
 
-    @GetMapping(params = { "query" })
-    public List<Product> getByQuery(
-        @RequestParam() String query
-    ) {
-        return productService.findByQuery(query);
-    }
+	@GetMapping()
+	public ResponseEntity<CollectionModel<EntityModel<Product>>> getAll() {
+		return ResponseEntity.ok(resourceProcessor.toCollectionModel(productService.findAll()));
+	}
+
+	@GetMapping(params = { "query" })
+	public ResponseEntity<CollectionModel<EntityModel<Product>>> getByQuery(
+			@RequestParam() String query
+	) {
+		return ResponseEntity.ok(resourceProcessor.toCollectionModel(productService.findByQuery(query)));
+	}
 }

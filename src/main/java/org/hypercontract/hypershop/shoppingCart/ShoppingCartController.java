@@ -2,22 +2,25 @@ package org.hypercontract.hypershop.shoppingCart;
 
 import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.product.ProductController;
+import org.hypercontract.hypershop.product.ProductService;
 import org.hypercontract.hypershop.resource.Id;
+import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/shoppingCart")
 @AllArgsConstructor
+@ExposesResourceFor(ShoppingCart.class)
 public class ShoppingCartController {
 
     private final ShoppingCartService shoppingCartService;
-    private final ProductController productController;
+    private final ProductService productService;
 
     @GetMapping
     public ShoppingCart get() {
@@ -35,7 +38,7 @@ public class ShoppingCartController {
     public ResponseEntity<Void> addItem(
         @RequestBody AdditionToShoppingCart additionToShoppingCart
     ) {
-        var product = productController.getById(additionToShoppingCart.getProduct());
+        var product = productService.getById(additionToShoppingCart.getProduct());
 
         shoppingCartService.addItem(additionToShoppingCart, product);
 

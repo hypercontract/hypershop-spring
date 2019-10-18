@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-class ProductService {
+public class ProductService {
 
     private final ProductRepository productRepository;
 

@@ -3,8 +3,7 @@ package org.hypercontract.hypershop.order.mock;
 import lombok.AllArgsConstructor;
 import org.hypercontract.hypershop.order.NewOrder;
 import org.hypercontract.hypershop.order.OrderController;
-import org.hypercontract.hypershop.product.Product;
-import org.hypercontract.hypershop.product.ProductController;
+import org.hypercontract.hypershop.product.*;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCart;
 import org.hypercontract.hypershop.shoppingCart.ShoppingCartController;
 import org.hypercontract.hypershop.userProfile.UserProfileController;
@@ -24,7 +23,7 @@ class OrderMockDataInitializer {
     private static final int ORDER_COUNT = 10;
     private static final int MAX_SHOPPING_CART_ITEM_COUNT = 3;
 
-    private final ProductController productController;
+    private final ProductService productService;
     private final ShoppingCartController shoppingCartController;
     private final OrderController orderController;
     private final UserProfileController userProfileController;
@@ -39,7 +38,7 @@ class OrderMockDataInitializer {
         var addresses = userProfile.getAddresses();
         var paymentOptions = userProfile.getPaymentOptions();
 
-        var products = productController.getAll();
+        var products = productService.findAll();
 
         Stream.generate(() -> prepareShoppingCart(products, MAX_SHOPPING_CART_ITEM_COUNT))
             .map(shoppingCart -> mockNewOrderBuilder.build(shoppingCart, addresses, paymentOptions))
